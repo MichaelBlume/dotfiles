@@ -1,0 +1,6 @@
+[user]
+    name = Mike Blume
+    email = blume.mike@gmail.com
+    editor = /usr/bin/vim
+[push]
+	default = tracking
