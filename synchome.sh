@@ -12,7 +12,9 @@
 
 prog="$(basename $0)"
 
-source="home/"
+# Allow this to be set in environment.
+[ -z "$source" ] && source="home/"
+
 # Make sure someserver::homedirs rsync module exists
 rsync -q $source
 if [ $? -ne 0 ] ; then

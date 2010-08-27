@@ -2,7 +2,7 @@
 set -e
 case "$1" in
   configure)
-    sh /opt/homedirs/synchome.sh
+    source="/opt/homedirs/" sh /opt/homedirs/synchome.sh
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
