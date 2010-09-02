@@ -15,7 +15,7 @@ install:
 .PHONY: deb
 deb:
 	rm -r debian || true
-	dh_make -s -n -c blank -e $$USER -p "$(NAME)_$(VERSION)"
+	dh_make -s -n -c blank -e $$USER -p "$(NAME)_$(VERSION)" < /dev/null
 	install -m 755 postinst debian/
 	debuild -uc -us
 
