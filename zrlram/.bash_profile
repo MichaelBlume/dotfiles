@@ -19,6 +19,7 @@ alias ls='/bin/ls --color'
 alias runserver='sudo stunnel4; HTTPS=on sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:443 --settings settingsdebug; sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:80 --settings settingsdebug'
 alias loggly='cd /opt/loggly/web/app'
 alias labs='cd /opt/loggly/labs/app'
+alias proxy='cd /opt/loggly/proxy/etc'
 alias rm='rm -i'
 function sgrep() { grep -r "$@" | grep -v svn | grep -v migration; }
 #alias grep='grep \$* | grep -v svn'
