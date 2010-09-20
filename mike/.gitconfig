@@ -1,6 +1,6 @@
 [user]
     name = Mike Blume
-    email = blume.mike@gmail.com
+	email = mike@loggly.com
     editor = /usr/bin/vim
 [push]
 	default = tracking
