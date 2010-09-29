@@ -8,6 +8,7 @@ set dir=/tmp
 color delek
 set background=dark
 highlight LineNr  term=NONE
+set backspace=indent,eol,start
 set autoindent
 set smartindent
 set ignorecase
@@ -18,6 +19,7 @@ set hlsearch
 set incsearch
 set nopaste
 set number
+set esckeys
 syntax on 
 
 set tabstop=4 
