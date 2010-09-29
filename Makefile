@@ -10,7 +10,7 @@ build:
 install:
 	[ -d "$(DESTDIR)" ]
 	install -d $(DESTDIR)/opt/homedirs
-	rsync -avC --exclude .svn . $(DESTDIR)/opt/homedirs
+	rsync -avC --exclude .svn --exclude debian --exclude Makefile . $(DESTDIR)/opt/homedirs
 
 .PHONY: deb
 deb:
