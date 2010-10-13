@@ -4,3 +4,5 @@
     editor = /usr/bin/vim
 [push]
 	default = tracking
+[color]
+	ui = true
