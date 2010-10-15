@@ -89,6 +89,21 @@ compctl -g '/var/db/pkg/*(/:t)' pkg_delete pkg_info
 compctl -j -P '%' kill bg fg
 compctl -v export unset vared
 
+function up {
+  if [ "$#" -eq 0 ] ; then
+    echo "Up to where?"
+    return 1
+  fi
+
+  times=$1
+  target="$2"
+  while [ $times -gt 0 ] ; do
+    target="../$target"
+    times=$((times - 1))
+  done
+  cd $target
+}
+
 # Set up $PATH
 function notinpath {
   for tmp in $path; do
