@@ -1,3 +1,5 @@
+
+au! BufWritePost .vimrc source %
 set nocompatible
 
 " create a backup of files when editing in /tmp
@@ -20,6 +22,8 @@ set incsearch
 set nopaste
 set number
 set esckeys
+set wildmode=longest,list,full
+set wildmenu
 syntax on 
 
 set tabstop=4 
