@@ -7,6 +7,9 @@
 
 # Add home bin to path
 export PATH=/home/mike/bin/:$PATH
+source ~/git-completion.bash
+export VIM=/home/mike/.vim/
+#export VIM=/usr/share/vim/vim71
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
