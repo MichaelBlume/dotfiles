@@ -1,0 +1,7 @@
+[extensions]
+hgext.bookmarks = 
+hggit = /home/mike/workspace/hg-git/hggit
+hgk = /home/mike/workspace/hg/hgext/hgk.py
+
+[git]
+intree = 1
