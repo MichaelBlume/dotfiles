@@ -1,1 +1,9 @@
 *.pyc
+.Xauthority
+.bash_logout
+.bash_history
+.gnupg
+.lesshst
+.ssh/id_rsa
+.ssh/id_rsa.pub
+.ssh/known_hosts
