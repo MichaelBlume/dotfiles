@@ -30,7 +30,7 @@ alias ip='curl http://whatismyip.org; echo'
 alias st='svn status /opt/loggly/base; svn status /opt/loggly/web; svn status /opt/loggly/proxy'
 alias sc='cat /tmp/svn.notes'
 alias se='vim /tmp/svn.notes'
-
+alias tulpn='sudo netstat -tulpn'
 
 set -o vi
 export PATH=/root/bin:$PATH
