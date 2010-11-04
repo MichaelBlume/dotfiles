@@ -115,3 +115,5 @@ if [ -a /usr/local/bin/hub ];
 then
     alias git=hub;
 fi
+
+alias ssh="ssh -X"
