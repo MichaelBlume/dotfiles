@@ -8,3 +8,4 @@
 .ssh/id_rsa.pub
 .ssh/known_hosts
 .gitk
+.vim/.netrwhist
