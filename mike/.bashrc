@@ -111,7 +111,7 @@ source ~/.git-completion.bash
 # Set Vim home
 #export VIM=/home/mike/.vim
 
-if [ -a /usr/local/bin/hub ];
+if [ -a /home/mike/bin/hub ];
 then
     alias git=hub;
 fi
