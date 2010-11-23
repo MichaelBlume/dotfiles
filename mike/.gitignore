@@ -9,3 +9,15 @@
 .ssh/known_hosts
 .gitk
 .vim/.netrwhist
+.aptitude/
+.cache/
+.node_libraries/
+.python-eggs/
+.subversion/
+.viminfo
+bin/
+include/
+lib/
+libexec/
+share/
+workspace/
