@@ -9,3 +9,5 @@
 [github]
 	user = MichaelBlume
 	token = 331443c9dd082628811367ad6c30ebe4
+[receive]
+    denyCurrentBranch = warn
