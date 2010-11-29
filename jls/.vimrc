@@ -88,6 +88,7 @@ map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
 " Miscellaneous auto commands
+autocmd BufEnter * lcd %:p:h
 autocmd BufNewFile,BufRead */Mail/drafts/* setf mail
 autocmd Filetype mail set tw=72 noa
 autocmd FileType perl set comments=f:#
