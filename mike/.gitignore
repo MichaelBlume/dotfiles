@@ -21,3 +21,4 @@ lib/
 libexec/
 share/
 workspace/
+.cpan
