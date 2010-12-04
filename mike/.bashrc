@@ -117,3 +117,4 @@ then
 fi
 
 alias ssh="ssh -X"
+set -o vi
