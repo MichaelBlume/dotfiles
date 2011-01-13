@@ -4,6 +4,7 @@
 
 # Add home bin to path
 export PATH=/home/mike/bin/:$PATH
+alias svn="git svn"
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -117,4 +118,5 @@ then
 fi
 
 alias ssh="ssh -X"
+alias make-deb="make deb SVN=\"git svn\""
 set -o vi
