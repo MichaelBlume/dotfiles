@@ -1,5 +1,6 @@
+SVN=svn
 NAME=loggly-homedirs
-REVISION=$(shell svn info | awk '/Revision: / {print $$2}')
+REVISION=$(shell $(SVN) info | awk '/Revision: / {print $$2}')
 VERSION=$(REVISION).trunk
 
 .PHONY: build
