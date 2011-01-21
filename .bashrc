@@ -140,3 +140,5 @@ alias merge="git merge"
 alias master="git checkout master; git svn rebase"
 
 set -o vi
+
+cd /opt/loggly/web/app/
