@@ -22,3 +22,5 @@ libexec/
 share/
 workspace/
 .cpan
+.ipython/history
+.ipython/db
