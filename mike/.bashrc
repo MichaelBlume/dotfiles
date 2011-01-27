@@ -4,7 +4,6 @@
 
 # Add home bin to path
 export PATH=/home/mike/bin/:$PATH
-alias svn="git svn"
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
