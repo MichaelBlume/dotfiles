@@ -125,6 +125,7 @@ alias runs="cd /opt/loggly/web/app; sudo python manage.py runserver_plus 0.0.0:8
 alias ltail="cd /mnt/log/loggly/frontend/; tail -f loggly"
 alias loggly="cd /opt/loggly/web/app"
 alias home="cd /home/mike/"
+alias infra="cd /home/mike/workspace/loggly_infra"
 alias push="git svn dcommit"
 alias com="git commit"
 alias add="git add"
