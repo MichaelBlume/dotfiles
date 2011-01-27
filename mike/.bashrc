@@ -139,6 +139,10 @@ alias col="git checkout collection"
 alias merge="git merge"
 alias master="git checkout master; git svn rebase"
 
+alias apstart="sudo /etc/init.d/apache2 start"
+alias apstop="sudo /etc/init.d/apache2 stop"
+alias apres="sudo /etc/init.d/apache2 restart"
+
 set -o vi
 
 cd /opt/loggly/web/app/
