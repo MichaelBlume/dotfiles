@@ -119,6 +119,7 @@ fi
 alias ssh="ssh -X"
 alias sshl="ssh -X app-mike.loggly.org"
 alias sshp="ssh -X frontend1.prod.loggly.net"
+alias sshp2="ssh -X frontend2.prod.loggly.net"
 alias make-deb="sudo chown mike:mike /opt/loggly/web;make deb SVN=\"git svn\""
 alias dshell="cd /opt/loggly/web/app; python manage.py shell_plus"
 alias runs="cd /opt/loggly/web/app; sudo python manage.py runserver_plus 0.0.0:80"
