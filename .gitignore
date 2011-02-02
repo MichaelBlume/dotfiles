@@ -23,4 +23,5 @@ share/
 workspace/
 .cpan
 .ipython/history
+.ipython/history-sh
 .ipython/db
