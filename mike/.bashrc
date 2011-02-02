@@ -145,6 +145,8 @@ alias apstart="sudo /etc/init.d/apache2 start"
 alias apstop="sudo /etc/init.d/apache2 stop"
 alias apres="sudo /etc/init.d/apache2 restart"
 
+alias puball="ssh build.loggly.org 'ls | xargs publish.sh; rm *; exit'"
+
 set -o vi
 
 cd /opt/loggly/web/app/
