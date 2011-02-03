@@ -118,12 +118,25 @@ try:
 except ImportError:
     pass
 
+def subget(subdomain):
+    from app.customer.models import Customer
+    return Customer.objects.subget(subdomain)
+ip.to_user_ns('subget')
+
 def subdelete(subdomain, force=False):
     if 'test' not in subdomain and not force:
         print 'you sure about that?'
         return
-    from app.customer.models import Customer
-    c=Customer.objects.subget(subdomain)
+    c=subget(subdomain)
     c.delete(c.getOwner())
-
 ip.to_user_ns('subdelete')
+
+try:
+    logdog = subget('logdog')
+    from django.contrib.auth.models import User
+    myuser = User.objects.get(username='logdog_mike')
+    myprofile = myuser.get_profile()
+except:
+    pass
+else:
+    ip.to_user_ns('logdog myuser myprofile')
