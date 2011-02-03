@@ -117,3 +117,13 @@ try:
     ip.ex("from django.conf import settings")
 except ImportError:
     pass
+
+def subdelete(subdomain, force=False):
+    if 'test' not in subdomain and not force:
+        print 'you sure about that?'
+        return
+    from app.customer.models import Customer
+    c=Customer.objects.subget(subdomain)
+    c.delete(c.getOwner())
+
+ip.to_user_ns('subdelete')
