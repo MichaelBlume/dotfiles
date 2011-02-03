@@ -104,6 +104,7 @@ fi
 #My additions:
 
 export EDITOR=vim
+export PYTHONPATH=/home/mike/lib/python/
 
 # Git tab completion
 source ~/.git-completion.bash
