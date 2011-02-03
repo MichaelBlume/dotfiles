@@ -73,13 +73,13 @@ def main():
     #o.autoexec.append('%colors Linux')
     
     # for sane integer division that converts to float (1/2 == 0.5)
-    #o.autoexec.append('from __future__ import division')
+    o.autoexec.append('from __future__ import division')
     
     # For %tasks and %kill
     #import jobctrl 
     
     # For autoreloading of modules (%autoreload, %aimport)    
-    #import ipy_autoreload
+    import ipy_autoreload
     
     # For winpdb support (%wdb)
     #import ipy_winpdb
