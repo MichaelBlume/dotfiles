@@ -25,3 +25,4 @@ workspace/
 .ipython/history
 .ipython/history-sh
 .ipython/db
+.ipython/IPython_crash_report.txt
