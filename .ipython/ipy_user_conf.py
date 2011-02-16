@@ -140,3 +140,28 @@ except:
     pass
 else:
     ip.to_user_ns('logdog myuser myprofile')
+
+#lemme use GAE API in shell.
+
+import sys
+
+DIR_PATH = "/home/mike/workspace/google_appengine"
+
+EXTRA_PATHS = [
+  DIR_PATH,
+  os.path.join(DIR_PATH, 'lib', 'antlr3'),
+  os.path.join(DIR_PATH, 'lib', 'django'),
+  os.path.join(DIR_PATH, 'lib', 'fancy_urllib'),
+  os.path.join(DIR_PATH, 'lib', 'ipaddr'),
+  os.path.join(DIR_PATH, 'lib', 'webob'),
+  os.path.join(DIR_PATH, 'lib', 'yaml', 'lib'),
+  os.path.join(DIR_PATH, 'lib', 'simplejson'),
+  os.path.join(DIR_PATH, 'lib', 'graphy'),
+]
+
+sys.path = EXTRA_PATHS + sys.path
+
+from google.appengine.api import apiproxy_stub_map
+from google.appengine.api import urlfetch_stub
+apiproxy_stub_map.apiproxy = apiproxy_stub_map.APIProxyStubMap()
+apiproxy_stub_map.apiproxy.RegisterStub('urlfetch', urlfetch_stub.URLFetchServiceStub())
