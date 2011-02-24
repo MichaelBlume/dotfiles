@@ -157,6 +157,7 @@ alias master="git checkout master; git svn rebase"
 alias prepush="git branch -D master; git checkout -b  master; git rebase -i --onto remotes/trunk mergebase"
 alias rebc="git rebase --continue"
 alias mb="git branch -D mergebase; git branch mergebase"
+alias recol="git checkout collection; git merge remotes/trunk; git branch -D mergebase oldc; git branch oldc; git reset --hard remotes/trunk; git branch --no-merged | grep -v oldc | grep -v nm- | xargs git merge; git branch mergebase; git diff oldc;"
 
 
 set -o vi
