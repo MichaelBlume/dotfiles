@@ -107,7 +107,9 @@ export EDITOR=vim
 export PYTHONPATH=/home/mike/lib/python/
 
 # Git tab completion
-source ~/.git-completion.bash
+if [ -f ~/.git-completion.bash ]; then
+    source ~/.git-completion.bash
+fi
 
 # Set Vim home
 #export VIM=/home/mike/.vim
@@ -121,4 +123,6 @@ fi
 
 set -o vi
 
-cd /opt/loggly/web/app/
+if [ -f /opt/loggly/web/app ]; then
+    cd /opt/loggly/web/app/
+fi
