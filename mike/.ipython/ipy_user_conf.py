@@ -70,8 +70,9 @@ def main():
     except:
         pass
     else:
-        dep = settings.DEPLOYMENT.upper() + ' '
-        o.prompt_in1 = dep + o.prompt_in1
+        dep = settings.DEPLOYMENT
+        prompt_dep = dep != 'office' and (dep.upper() + ' ') or ''
+        o.prompt_in1 = prompt_dep + o.prompt_in1
 
     
     # Try one of these color settings if you can't read the text easily
