@@ -9,6 +9,9 @@ alias sshp2="ssh frontend2.prod.loggly.net"
 alias make-deb="sudo chown mike:mike /opt/loggly/web;make deb SVN=\"git svn\""
 alias puball="ssh build.loggly.org 'ls | grep -v tmp | xargs publish.sh; ls | grep -v tmp | xargs rm; exit'"
 
+alias vbash="vim ~/.bashrc"
+alias sbash="source ~/.bashrc"
+
 alias loggly="cd /opt/loggly/web/app"
 alias home="cd /home/mike/"
 alias infra="cd /home/mike/workspace/loggly_infra"
