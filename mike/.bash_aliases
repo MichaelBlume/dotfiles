@@ -1,3 +1,6 @@
+#! /bin/bash
+# (just to make vim color the file)
+
 alias ssh="ssh -X"
 alias sshl="ssh app-mike.loggly.org"
 alias sshp="ssh frontend1.prod.loggly.net"
