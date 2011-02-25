@@ -65,6 +65,14 @@ def main():
     #o.prompt_in1 = r'\C_LightBlue[\C_LightCyan\Y2\C_LightBlue]\C_Normal\n\C_Green|\#>'
     #o.prompt_in2 = r'.\D: '
     #o.prompt_out = r'[\#] '
+    try:
+        from django.conf import settings
+    except:
+        pass
+    else:
+        dep = settings.DEPLOYMENT.upper() + ' '
+        o.prompt_in1 = dep + o.prompt_in1
+
     
     # Try one of these color settings if you can't read the text easily
     # autoexec is a list of IPython commands to execute on startup
