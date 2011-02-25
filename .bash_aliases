@@ -48,5 +48,5 @@ alias master="co master; sreb"
 alias prepush="branch -D master; co -b master; g rebase -i --onto remotes/trunk mergebase"
 alias rebc="g rebase --continue"
 alias mb="branch -D mergebase; branch mergebase"
-alias recol="col; branch -D mergebase oldc; branch oldc; resh remotes/trunk; branch --no-merged | grep -v oldc | grep -v nm- | xargs git merge; branch mergebase; dif oldc;"
+alias recol="branch -D mergebase oldc; co -b mergebase remotes/trunk; branch --no-merged | grep -v collection | grep -v nm- | xargs git merge; col; branch oldc; g rebase -i mergebase; dif oldc;"
 
