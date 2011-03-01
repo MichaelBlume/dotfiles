@@ -123,6 +123,6 @@ fi
 
 set -o vi
 
-if [ -f /opt/loggly/web/app ]; then
+if [ -d /opt/loggly/web/app ]; then
     cd /opt/loggly/web/app/
 fi
