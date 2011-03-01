@@ -26,3 +26,5 @@ workspace/
 .ipython/history-sh
 .ipython/db
 .ipython/IPython_crash_report.txt
+.appcfg_cookies
+.appcfg_nag
