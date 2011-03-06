@@ -67,10 +67,10 @@ def main():
     #o.prompt_out = r'[\#] '
     try:
         from django.conf import settings
+        dep = settings.DEPLOYMENT
     except:
         pass
     else:
-        dep = settings.DEPLOYMENT
         prompt_dep = dep != 'office' and (dep.upper() + ' ') or ''
         o.prompt_in1 = prompt_dep + o.prompt_in1
 
