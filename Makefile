@@ -11,6 +11,7 @@ build:
 install:
 	[ -d "$(DESTDIR)" ]
 	install -d $(DESTDIR)/opt/homedirs
+	install -m 75 postinst $(DESTDIR)/opt/homedirs/
 	rsync -avC --exclude .svn --exclude debian --exclude Makefile . $(DESTDIR)/opt/homedirs
 
 .PHONY: deb
