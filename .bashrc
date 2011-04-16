@@ -111,6 +111,8 @@ if [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
+complete -o default -o nospace -F _git g
+
 # Set Vim home
 #export VIM=/home/mike/.vim
 
