@@ -60,7 +60,7 @@
     decorate = short
 [push]
     # don't push all the branches!
-    default = upstream
+    default = tracking
 [receive]
     # allow push -f
     denyCurrentBranch = warn
