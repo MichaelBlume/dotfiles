@@ -28,3 +28,4 @@ workspace/
 .ipython/IPython_crash_report.txt
 .appcfg_cookies
 .appcfg_nag
+.pypirc
