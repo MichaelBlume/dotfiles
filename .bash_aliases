@@ -29,27 +29,3 @@ alias apstop="sudo /etc/init.d/apache2 stop"
 alias apres="sudo /etc/init.d/apache2 restart"
 
 alias g="git"
-
-alias com="g commit"
-alias add="g add"
-alias dif="g diff"
-alias res="g reset"
-alias co="g checkout"
-alias branch="g branch"
-alias merge="g merge"
-alias st="g status"
-
-alias push="g svn dcommit"
-alias sreb="g svn rebase"
-alias fetch="g svn fetch"
-
-alias resh="res --hard"
-alias reb="g rebase remotes/trunk"
-alias pull="fetch; merge remotes/trunk"
-alias col="co collection; pull"
-alias master="co master; sreb"
-alias prepush="branch -D master; co -b master; g rebase -i --onto remotes/trunk mergebase"
-alias rebc="g rebase --continue"
-alias mb="branch -D mergebase; branch mergebase"
-alias recol="branch -D mergebase oldc; co -b mergebase remotes/trunk; branch --no-merged | grep -v collection | grep -v nm- | xargs git merge; col; branch oldc; g rebase -i mergebase; dif oldc;"
-
