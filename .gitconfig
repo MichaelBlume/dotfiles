@@ -12,7 +12,9 @@
     cl = clone
     co = checkout
     d = diff
+    db = branch -D
     f = fetch
+    g = grep
     irb = rebase --interactive
     k = !gitk
     ka = !gitk --all
@@ -55,6 +57,9 @@
 [github]
     user = MichaelBlume
     token = 331443c9dd082628811367ad6c30ebe4
+[grep]
+    # show line numbers when I git-grep
+    lineNumber = true
 [log]
     # show where branches are in log
     decorate = short
