@@ -46,9 +46,11 @@
 [color]
     ui = auto
 [core]
+    editor = /usr/bin/vim
+    # x bits on scripts are often set false in a repo
+    filemode = false
     # be strict
     whitespace = fix,trailing-space,space-before-tab, tab-in-indent, tabwidth=4
-    editor = /usr/bin/vim
 [diff]
     # notice if I pull some text out of a file
     renames = copies
