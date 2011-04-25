@@ -107,7 +107,9 @@ export EDITOR=vim
 export PYTHONPATH=/home/mike/lib/python/
 
 # Git tab completion
-if [ -f ~/.git-completion.bash ]; then
+if [ -f ~/workspace/git/contrib/completion/git-completion.bash ]; then
+    source ~/workspace/git/contrib/completion/git-completion.bash
+elif [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
