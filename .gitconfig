@@ -43,6 +43,9 @@
 [apply]
     # wish this worked with commits
     whitespace = fix
+[branch]
+    # when I branch off a remote checkout, set up tracking.
+    autosetupmerge = true
 [color]
     ui = auto
 [core]
