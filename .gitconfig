@@ -50,6 +50,7 @@
     ui = auto
 [core]
     editor = /usr/bin/vim
+    excludesfile = /home/mike/.gitignoreglobal
     # x bits on scripts are often set false in a repo
     filemode = false
     # be strict
