@@ -1,4 +1,3 @@
-
 au! BufWritePost .vimrc source %
 set nocompatible
 
@@ -67,6 +66,7 @@ inoremap # X#
 set guioptions-=T
 "no scrollbar
 set guioptions-=r
+set guioptions-=l
 "autoselect. Always.
 set guioptions+=A
 
