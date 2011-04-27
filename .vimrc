@@ -66,7 +66,7 @@ inoremap # X#
 set guioptions-=T
 "no scrollbar
 set guioptions-=r
-set guioptions-=l
+set guioptions-=L
 "autoselect. Always.
 set guioptions+=A
 
