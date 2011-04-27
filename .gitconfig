@@ -6,6 +6,7 @@
     ai = add --interactive
     ap = add --patch
     b = branch
+    bl = blame
     c = commit
     ca = commit --all
     cb = checkout -b
