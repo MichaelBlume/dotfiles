@@ -20,6 +20,7 @@
     k = !gitk
     ka = !gitk --all
     l = log
+    lp = log -p
     m = merge
     mm = merge --no-ff
     p = cherry-pick
