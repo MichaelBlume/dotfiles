@@ -1,5 +1,6 @@
 [advice]
     # I know this stuff by now
+    pushNonFastForward = false
     statusHints = false
 [alias]
     a = add
