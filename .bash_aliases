@@ -29,3 +29,6 @@ alias apstop="sudo /etc/init.d/apache2 stop"
 alias apres="sudo /etc/init.d/apache2 restart"
 
 alias g="git"
+
+alias aoeu="setxkbmap us"
+alias asdf="setxkbmap dvorak"
