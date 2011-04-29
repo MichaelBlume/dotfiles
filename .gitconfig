@@ -28,6 +28,7 @@
     mm = merge --no-ff
     p = cherry-pick
     pl = pull
+    pr = pull --rebase
     ps = push
     r = remote
     rb = rebase
