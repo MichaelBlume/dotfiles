@@ -18,6 +18,8 @@
     f = fetch
     g = grep
     irb = rebase --interactive
+    irbm = rebase --interactive master
+    irbo = rebase --interactive HEAD@{upstream}
     k = !gitk
     ka = !gitk --all
     l = log
@@ -32,7 +34,7 @@
     rba = rebase --abort
     rbc = rebase --continue
     rbm = rebase master
-    rbo = rebase remotes/origin/master
+    rbo = rebase HEAD@{upstream}
     rbs = rebase --skip
     rh = reset --hard
     rl = reflog
