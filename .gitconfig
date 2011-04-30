@@ -24,6 +24,7 @@
     ka = !gitk --all
     l = log
     lp = log -p
+    ls = ls-files
     m = merge
     mm = merge --no-ff
     p = cherry-pick
