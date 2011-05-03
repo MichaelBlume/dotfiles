@@ -18,6 +18,7 @@
     f = fetch
     fa = fetch --all
     g = grep
+    h = help
     irb = rebase --interactive
     irbm = rebase --interactive master
     irbo = rebase --interactive HEAD@{upstream}
