@@ -50,6 +50,8 @@
     st = stash
     stc = stash clear
     sta = stash apply
+    # try to use this one instead
+    stp = stash pop
 [apply]
     # wish this worked with commits
     whitespace = fix
