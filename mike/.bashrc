@@ -3,7 +3,7 @@
 # for examples
 
 # Add home bin to path
-export PATH=/home/mike/bin/:$PATH:/home/mike/workspace/google_appengine
+export PATH=/home/mike/bin:$PATH:/home/mike/workspace/google_appengine
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -107,9 +107,13 @@ export EDITOR=vim
 export PYTHONPATH=/home/mike/lib/python/
 
 # Git tab completion
-if [ -f ~/.git-completion.bash ]; then
+if [ -f ~/workspace/git/contrib/completion/git-completion.bash ]; then
+    source ~/workspace/git/contrib/completion/git-completion.bash
+elif [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
+
+complete -o default -o nospace -F _git g
 
 # Set Vim home
 #export VIM=/home/mike/.vim

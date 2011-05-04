@@ -168,7 +168,7 @@ EXTRA_PATHS = [
   os.path.join(DIR_PATH, 'lib', 'graphy'),
 ]
 
-sys.path = EXTRA_PATHS + sys.path
+sys.path = sys.path + EXTRA_PATHS
 
 try:
     from google.appengine.api import apiproxy_stub_map

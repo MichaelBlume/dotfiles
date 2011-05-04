@@ -1,4 +1,3 @@
-
 au! BufWritePost .vimrc source %
 set nocompatible
 
@@ -29,7 +28,7 @@ syntax on
 set tabstop=4 
 set shiftwidth=4 
 set expandtab 		
-set textwidth=80
+set textwidth=79
 set softtabstop=4
 
 set wmnu
@@ -61,4 +60,15 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-inoremap # X#
+autocmd FileType python inoremap # X#
+
+"no toolbar
+set guioptions-=T
+"no scrollbar
+set guioptions-=r
+set guioptions-=L
+"autoselect. Always.
+set guioptions+=A
+
+colorscheme koehler
+set guifont=Monospace\ 9

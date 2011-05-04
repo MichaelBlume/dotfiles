@@ -1,13 +1,98 @@
-[user]
-    name = Mike Blume
-	email = mike@loggly.com
-    editor = /usr/bin/vim
-[push]
-	default = tracking
+[advice]
+    # I know this stuff by now
+    pushNonFastForward = false
+    statusHints = false
+[alias]
+    a = add
+    ai = add --interactive
+    ap = add --patch
+    b = branch
+    bl = blame
+    c = commit
+    ca = commit --all
+    cb = checkout -b
+    cl = clone
+    co = checkout
+    d = diff
+    db = branch -D
+    e = checkout -p
+    f = fetch
+    fa = fetch --all
+    g = grep
+    h = help
+    irb = rebase --interactive
+    irbm = rebase --interactive master
+    irbo = rebase --interactive HEAD@{upstream}
+    k = !gitk
+    ka = !gitk --all
+    l = log
+    lp = log -p
+    ls = ls-files
+    m = merge
+    mm = merge --no-ff
+    p = cherry-pick
+    pl = pull
+    pr = pull --rebase
+    ps = push
+    r = remote
+    rb = rebase
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbm = rebase master
+    rbo = rebase HEAD@{upstream}
+    rbs = rebase --skip
+    rh = reset --hard
+    rl = reflog
+    rs = reset --soft
+    rx = reset --mixed
+    s = status
+    sh = show
+    st = stash
+    stc = stash clear
+    sta = stash apply
+    # try to use this one instead
+    stp = stash pop
+    uc = reset --mixed HEAD^
+[apply]
+    # wish this worked with commits
+    whitespace = fix
+[branch]
+    # when I branch off a remote checkout, set up tracking.
+    autosetupmerge = true
 [color]
-	ui = true
+    ui = auto
+[core]
+    editor = /usr/bin/vim
+    excludesfile = /home/mike/.gitignoreglobal
+    # x bits on scripts are often set false in a repo
+    filemode = false
+    # be strict
+    whitespace = fix,trailing-space,space-before-tab, tab-in-indent, tabwidth=4
+[diff]
+    # notice if I pull some text out of a file
+    renames = copies
+    # a,b = not so helpful
+    mnemonicprefix = true
 [github]
-	user = MichaelBlume
-	token = 331443c9dd082628811367ad6c30ebe4
+    user = MichaelBlume
+    token = 331443c9dd082628811367ad6c30ebe4
+[grep]
+    # show line numbers when I git-grep
+    lineNumber = true
+[log]
+    # show where branches are in log
+    decorate = short
+[push]
+    # don't push all the branches!
+    default = current
 [receive]
+    # allow push -f
     denyCurrentBranch = warn
+[rebase]
+    # show a diffstat after rebasing
+    stat = true
+[user]
+    # Hey look, it's me.
+    name = Mike Blume
+    email = mike@loggly.com
+    
