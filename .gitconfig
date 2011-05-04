@@ -49,6 +49,7 @@
     st = stash
     stc = stash clear
     sta = stash apply
+    uc = reset --mixed HEAD^
 [apply]
     # wish this worked with commits
     whitespace = fix
