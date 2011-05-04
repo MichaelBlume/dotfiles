@@ -15,6 +15,7 @@
     co = checkout
     d = diff
     db = branch -D
+    e = checkout -p
     f = fetch
     fa = fetch --all
     g = grep
