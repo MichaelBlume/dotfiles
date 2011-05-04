@@ -52,6 +52,7 @@
     sta = stash apply
     # try to use this one instead
     stp = stash pop
+    uc = reset --mixed HEAD^
 [apply]
     # wish this worked with commits
     whitespace = fix
