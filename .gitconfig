@@ -13,6 +13,8 @@
     cb = checkout -b
     cl = clone
     co = checkout
+    cp = cherry-pick
+    cpx = cherry-pick -x
     d = diff
     db = branch -D
     e = checkout -p
@@ -30,7 +32,6 @@
     ls = ls-files
     m = merge
     mm = merge --no-ff
-    p = cherry-pick
     pl = pull
     pr = pull --rebase
     ps = push
