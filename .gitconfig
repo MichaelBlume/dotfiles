@@ -94,6 +94,8 @@
 [rebase]
     # show a diffstat after rebasing
     stat = true
+[svn]
+    authorsfile = /home/mike/.svn_authors
 [user]
     # Hey look, it's me.
     name = Mike Blume
