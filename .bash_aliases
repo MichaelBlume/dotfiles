@@ -17,7 +17,7 @@ alias sbash="source ~/.bashrc"
 
 alias loggly="cd /opt/loggly/web/app"
 alias home="cd /home/mike/"
-alias infra="cd /home/mike/workspace/loggly_infra"
+alias infra="cd /home/mike/workspace/infra"
 alias www="cd /var/www/optimize"
 
 alias dshell="loggly; python -Qwarnall manage.py shell_plus"
