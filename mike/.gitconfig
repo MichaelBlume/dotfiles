@@ -10,9 +10,13 @@
     bl = blame
     c = commit
     ca = commit --all
+    cm = commit --amend
+    cam = commit --all --amend
     cb = checkout -b
     cl = clone
     co = checkout
+    cp = cherry-pick
+    cpx = cherry-pick -x
     d = diff
     db = branch -D
     e = checkout -p
@@ -30,7 +34,6 @@
     ls = ls-files
     m = merge
     mm = merge --no-ff
-    p = cherry-pick
     pl = pull
     pr = pull --rebase
     ps = push
@@ -91,6 +94,8 @@
 [rebase]
     # show a diffstat after rebasing
     stat = true
+[svn]
+    authorsfile = /home/mike/.svn_authors
 [user]
     # Hey look, it's me.
     name = Mike Blume
