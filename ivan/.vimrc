@@ -1,57 +1,50 @@
+" Ivan's .vimrc file
+" ivan@hipnik.net
+
+" important settings
 set nocompatible
 
-" create a backup of files when editing in /tmp
-set backupdir=~/tmp
-" swap file directory
-set dir=~/tmp
-" color desert
-color delek
-set background=dark
-highlight LineNr  term=NONE
+" reading/writing files
+set modeline
+set modelines=10
+set nobackup
+
+" messages, info
+set ruler
+set visualbell
+
+" syntax, highlighting
+syntax on
+
+" tabs, indenting
 set autoindent
 set smartindent
-set ignorecase
-set ruler
-set showmatch
-set showmode
-set hlsearch
-set incsearch
-set nopaste
-set number
-syntax on 
-
-set tabstop=4 
-set shiftwidth=4 
-set expandtab 		
-"set textwidth=80
+set expandtab
+set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 
-set wmnu
+" editing text
+set backspace=indent,eol,start
+set showmatch
 
-" set GUI font
-command F set guifont=Monaco:h13
+" searching 
+set smartcase
+set ignorecase
+set hlsearch
 
-" filetype on
-filetype indent on
-filetype plugin on
-" Tag List
-" let Tlist_Auto_Open = 1
-" let Tlist_Ctags_Cmd='/usr/bin/ctags'
-"
-command DiffOrg vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+" multiple windows
+set splitbelow
+set splitright
 
-set tags=tag,./TAGS,tags,TAGS,/opt/loggly/web/tags
+" GUI
+colorscheme desert
+set guioptions=aeimtr
+    " a = autoselect
+    " e = show guitabline
+    " m = menubar
+    " L = left scrollbar when vertically split
+    " r = right scrollbar
 
-let python_highlight_all=1
-set completeopt+=longest
-set foldmethod=indent
-set nofoldenable
-
-" Django/Python Coding
-"remap code complete to ctrl space
-autocmd FileType python inoremap <S-Tab> <C-x><C-o>
-
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" python files
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,with,try,except,finally,def,class
