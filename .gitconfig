@@ -48,6 +48,7 @@
     rh = reset --hard
     rl = reflog
     rs = reset --soft
+    rv = revert
     rx = reset --mixed
     s = status
     sh = show
