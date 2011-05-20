@@ -51,7 +51,10 @@
     rv = revert
     rx = reset --mixed
     s = status
+    sf = svn fetch
     sh = show
+    sps = svn dcommit
+    srb = svn rebase
     st = stash
     stc = stash clear
     sta = stash apply
