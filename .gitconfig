@@ -13,6 +13,7 @@
     cm = commit --amend
     cam = commit --all --amend
     cb = checkout -b
+    cd = commit --all -m "dirty"
     cl = clone
     co = checkout
     cp = cherry-pick
