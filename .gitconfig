@@ -83,7 +83,7 @@
     mnemonicprefix = true
 [github]
     user = MichaelBlume
-    token = 331443c9dd082628811367ad6c30ebe4
+    token = 942380777196d7f16e92755198360fb1
 [grep]
     # show line numbers when I git-grep
     lineNumber = true
