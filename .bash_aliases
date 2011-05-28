@@ -34,3 +34,5 @@ alias aoeu="setxkbmap us"
 alias asdf="setxkbmap dvorak"
 
 alias node="env NODE_NO_READLINE=1 rlwrap node"
+
+alias vpn="cd ~/vpnconf; sudo openvpn openvpn.conf"
