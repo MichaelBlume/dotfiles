@@ -19,10 +19,9 @@ alias ls='/bin/ls --color'
 
 # Loggly stuff
 export LOGGLY_APP='/opt/loggly/web/app'
-alias runserverssl='sudo stunnel4; HTTPS=on sudo $LOGGLY_APP/manage.py runserver_plus 0.0.0.0:443 --settings settingsdebug'
-alias runserver='sudo $LOGGLY_APP/manage.py runserver_plus 0.0.0.0:80 --settings settingsdebug'
+alias runserverssl='sudo stunnel4; HTTPS=on sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:443 --settings settingsdebug'
+alias runserver='sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:80 --settings settingsdebug'
 alias loggly='cd $LOGGLY_APP'
-alias labs='cd /opt/loggly/labs/app'
 
 export EDITOR=/usr/bin/vim
 export SVN_EDITOR=/usr/bin/vim
