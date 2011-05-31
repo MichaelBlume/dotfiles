@@ -31,6 +31,8 @@
     k = !gitk
     ka = !gitk --all
     l = log
+    lg = log --graph
+    lga = log --graph --all
     lp = log -p
     ls = ls-files
     m = merge
