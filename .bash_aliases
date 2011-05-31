@@ -35,5 +35,7 @@ alias aoeu="setxkbmap us"
 alias asdf="setxkbmap dvorak"
 
 alias node="env NODE_NO_READLINE=1 rlwrap node"
+alias pypy="~/Downloads/pypy-c-jit-43780-b590cf6de419-linux64/bin/pypy"
+alias pypy-ei="~/Downloads/pypy-c-jit-43780-b590cf6de419-linux64/bin/easy_install"
 
 alias vpn="cd ~/vpnconf; sudo openvpn openvpn.conf"
