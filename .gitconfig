@@ -58,9 +58,10 @@
     sps = svn dcommit
     srb = svn rebase
     st = stash
-    sta = stash apply
     stc = stash clear
-    # try to use this one instead
+    std = stash drop
+    stl = stash list
+    stlp = stash list --patch
     stp = stash pop
     uc = reset --mixed HEAD^
 [apply]
