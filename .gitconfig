@@ -33,6 +33,7 @@
     l = log
     lg = log --graph
     lga = log --graph --all
+    loud = log --grep=\\\\[[-_A-Z\\ ]*\\\\]
     lp = log -p
     ls = ls-files
     m = merge
