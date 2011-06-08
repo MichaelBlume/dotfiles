@@ -1,6 +1,11 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
-export PS1='\h:\w\$ '
+GIT=`which git`
+function parse_git_branch {
+      $GIT branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1] /'
+}
+
+export PS1='\h:\w$(parse_git_branch)\$ '
 umask 022
 
 # You may uncomment the following lines if you want `ls' to be colorized:
@@ -19,8 +24,8 @@ alias ls='/bin/ls --color'
 
 # Loggly stuff
 export LOGGLY_APP='/opt/loggly/web/app'
-alias runserverssl='sudo stunnel4; HTTPS=on sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:443 --settings settingsdebug'
-alias runserver='sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:80 --settings settingsdebug'
+alias runserverssl='sudo stunnel4; HTTPS=on sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:443'
+alias runserver='sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:80'
 alias loggly='cd $LOGGLY_APP'
 
 export EDITOR=/usr/bin/vim
