@@ -13,6 +13,7 @@
     cm = commit --amend
     cam = commit --all --amend
     cb = checkout -b
+    cd = commit --all -m "dirty"
     cl = clone
     co = checkout
     cp = cherry-pick
@@ -30,6 +31,9 @@
     k = !gitk
     ka = !gitk --all
     l = log
+    lg = log --graph
+    lga = log --graph --all
+    loud = log --grep=\\\\[[-_A-Z\\ ]*\\\\]
     lp = log -p
     ls = ls-files
     m = merge
@@ -47,13 +51,18 @@
     rh = reset --hard
     rl = reflog
     rs = reset --soft
+    rv = revert
     rx = reset --mixed
     s = status
+    sf = svn fetch
     sh = show
+    sps = svn dcommit
+    srb = svn rebase
     st = stash
     stc = stash clear
-    sta = stash apply
-    # try to use this one instead
+    std = stash drop
+    stl = stash list
+    stlp = stash list --patch
     stp = stash pop
     uc = reset --mixed HEAD^
 [apply]
@@ -78,7 +87,7 @@
     mnemonicprefix = true
 [github]
     user = MichaelBlume
-    token = 331443c9dd082628811367ad6c30ebe4
+    token = 942380777196d7f16e92755198360fb1
 [grep]
     # show line numbers when I git-grep
     lineNumber = true
