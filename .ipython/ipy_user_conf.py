@@ -178,3 +178,6 @@ except:
 else:
     apiproxy_stub_map.apiproxy = apiproxy_stub_map.APIProxyStubMap()
     apiproxy_stub_map.apiproxy.RegisterStub('urlfetch', urlfetch_stub.URLFetchServiceStub())
+
+# let me paste arbitrary (I think) JSON in the shell
+ip.ex("true=True;false=False")
