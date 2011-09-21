@@ -26,6 +26,7 @@
     g = grep
     h = help
     irb = rebase --interactive
+    irbl = rebase --interactive loggly/master
     irbm = rebase --interactive master
     irbo = rebase --interactive HEAD@{upstream}
     k = !gitk
@@ -45,6 +46,7 @@
     rb = rebase
     rba = rebase --abort
     rbc = rebase --continue
+    rbl = rebase loggly/master
     rbm = rebase master
     rbo = rebase HEAD@{upstream}
     rbs = rebase --skip
