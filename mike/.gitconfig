@@ -20,6 +20,7 @@
     cpx = cherry-pick -x
     d = diff
     db = branch -D
+    dbo = "!f() { git push origin :$1; }; f"
     e = checkout -p
     f = fetch
     fa = fetch --all
