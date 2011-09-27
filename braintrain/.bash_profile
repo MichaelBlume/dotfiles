@@ -15,6 +15,7 @@ alias svmh="echo 'logging into hoover@10.0.20.133'; ssh hoover@10.0.20.133"
 alias bedit="vi ~/.bash_profile"
 alias rh="echo 'sourcing bash profile'; source ~/.bash_profile"
 alias stop="cd ~/src"
+alias apitest="./manage.py test api --with-coverage --cover-package=app.api --settings=testing_settings"
 
 if [ -d /opt/loggly/web/app ]; then
     cd /opt/loggly/web/app/
