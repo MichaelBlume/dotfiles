@@ -22,6 +22,7 @@ alias www="cd /var/www/optimize"
 
 alias dshell="loggly; python -Qwarnall manage.py shell_plus"
 alias runs="loggly; sudo python -Qwarnall manage.py runserver_plus 0.0.0.0:80"
+alias syncenv="loggly; sudo python app-bootstrap.py --no-site-packages environment"
 alias ltail="cd /mnt/log/loggly/frontend/; tail -f loggly"
 
 alias apstart="sudo /etc/init.d/apache2 start"
