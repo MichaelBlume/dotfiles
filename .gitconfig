@@ -24,6 +24,7 @@
     e = checkout -p
     f = fetch
     fa = fetch --all
+    fl = fetch loggly
     g = grep
     h = help
     irb = rebase --interactive
