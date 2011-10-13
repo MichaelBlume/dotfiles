@@ -20,10 +20,6 @@ alias infra="cd /home/mike/workspace/infra"
 alias deploy="cd /home/mike/workspace/deployments"
 alias www="cd /var/www/optimize"
 
-alias dshell="loggly; python -Qwarnall manage.py shell_plus"
-alias runs="loggly; sudo python -Qwarnall manage.py runserver_plus 0.0.0.0:80"
-alias ltail="cd /mnt/log/loggly/frontend/; tail -f loggly"
-
 alias apstart="sudo /etc/init.d/apache2 start"
 alias apstop="sudo /etc/init.d/apache2 stop"
 alias apres="sudo /etc/init.d/apache2 restart"
