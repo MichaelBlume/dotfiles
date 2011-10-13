@@ -1,6 +1,3 @@
-nmap :q :qa
-nmap :wq :wqa
-
 nmap H ^
 nmap L $
 
