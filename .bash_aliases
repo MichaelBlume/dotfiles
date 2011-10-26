@@ -36,3 +36,5 @@ alias pypy-ei="~/Downloads/pypy-c-jit-43780-b590cf6de419-linux64/bin/easy_instal
 alias vpn="cd ~/vpnconf; sudo openvpn openvpn.conf"
 
 alias mine="sudo chown -R $USER:$USER ."
+
+alias resolr="supervisorctl restart loggly-solrserver"
