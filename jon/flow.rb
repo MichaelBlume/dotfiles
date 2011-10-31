@@ -154,7 +154,7 @@ class WTF
 
   def showCollector()
     puts "========== COLLECTOR =========="
-    puts "\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}"
+    puts "\t\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}\tlastMsg"
 
     tot = Hash.new()
     
@@ -182,7 +182,8 @@ class WTF
       end
       
       t = tot[host]
-      puts "#{host}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg']}"
+      displayHost = "Out." + host;
+      puts "#{'%-15s'%displayHost}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg']}"
       tEvents += t['events']
       tBytes += t['bytes']
       
@@ -192,7 +193,7 @@ class WTF
         puts "WARN:\tLast Message sent #{lastM}ms ago from #{host} to splitter"
       end        
     end
-    puts"OutTOT\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
+    puts"OutTOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
 
   end
 
@@ -206,7 +207,7 @@ class WTF
         s[1]['tags'].each do |t|
           if t == 'role:proxy=true'
             @@proxy.push(s[0])
-            puts "ADDING PROXY #{s[0]}"
+            #puts "ADDING PROXY #{s[0]}"
           elsif t == 'role:solr=true'
             isSolr = 1
           elsif t.start_with?('solr:levels=0,')
@@ -215,7 +216,7 @@ class WTF
         end
         if (isSolr and isIndexer)
           @@indexer.push(s[0])
-          puts "ADDING INDEXER #{s[0]}"
+          #puts "ADDING INDEXER #{s[0]}"
         end
       end
     end
@@ -228,7 +229,7 @@ end
 span = ARGV[0]
 wtf = WTF.new()
 wtf.getTruth()
-#wtf.showCollector()
+wtf.showCollector()
 wtf.showSplitter()
 wtf.showSolr()
 
