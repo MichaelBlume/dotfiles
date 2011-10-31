@@ -103,9 +103,9 @@ class WTF
       tP = "In." + host.gsub(/proxy/, 'Prx')
       tot[tP] = Hash.new()
       tot[tP]['lastmsg'] = Array.new()
-      push(sIn['lastmsg']) if sIn['lastmsg']
+      tot[tP]['lastmsg'].push(sIn['lastmsg']) if sIn['lastmsg']
       tot[tP]['qsize'] = Array.new()
-      push(sIn['qsize']) if sIn['qsize']
+      tot[tP]['qsize'].push(sIn['qsize']) if sIn['qsize']
       tot[tP]['events'] = sIn['metrics']['MultiInterval']['Events']['cnt']
       tot[tP]['bytes'] = sIn['metrics']['MultiInterval']['Bytes']['cnt']
 
