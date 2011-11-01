@@ -7,3 +7,9 @@ if [ "$BASH" ]; then
 fi
 
 mesg n
+set -o vi
+bind -m vi-command L:end-of-line
+bind -m vi-command H:vi-first-print
+
+alias ll="ls -la"
+
