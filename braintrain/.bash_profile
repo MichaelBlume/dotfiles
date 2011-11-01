@@ -19,8 +19,8 @@ alias apitest="./manage.py test api --with-coverage --cover-package=app.api --se
 alias serverkick="echo 'start damn you!'; sudo ./manage.py runserver_plus 0.0.0:80"
 alias stopapache="echo 'stooooop damn you!'; sudo /etc/init.d/apache2 stop"
 
-if [ -d /opt/loggly/web/app ]; then
-    cd /opt/loggly/web/app/
+if [ -d /opt/loggly/web/ ]; then
+    cd /opt/loggly/web/
 fi
 
 function parse_git_branch {
