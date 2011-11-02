@@ -41,6 +41,7 @@
     ls = ls-files
     m = merge
     mm = merge --no-ff
+    ms = merge -s subtree
     pl = pull
     pr = pull --rebase
     ps = push
