@@ -9,6 +9,7 @@ class WTF
   @@indexer = Array.new()
   @@proxy = Array.new()
   @@fullHost = Hash.new()
+  @@errors = Array.new()
   
   def showSolr()
     puts "========== SOLR =========="
@@ -22,11 +23,17 @@ class WTF
       begin 
         res = Net::HTTP.get(@@fullHost[host], sUrl, 8983)
       rescue Exception => ex
-        puts "ERROR:\tFailed to get data from #{host}: #{ex}"
+        @@errors.push("Failed to get solr data from #{host}: #{ex}")
         next
       end
 
-      sj = JSON.parse(res)
+      begin
+        sj = JSON.parse(res)
+      rescue Exception => ex
+        @@errors.push("Failed to parse solr response from #{host}: #{ex}")
+        next
+      end
+
 
       warns = Array.new()
       t = { 'events' => 0, 'bytes' => 0, 'lastmsg' => Array.new() }
@@ -90,11 +97,17 @@ class WTF
       begin 
         res = Net::HTTP.get(@@fullHost[host], sUrl, 7983)
       rescue Exception => ex
-        puts "ERROR:\tFailed to get data from #{host}: #{ex}"
+        @@errors.push("Failed to get splitter data from #{host}: #{ex}")
         next
       end
 
-      sj = JSON.parse(res)
+      begin
+        sj = JSON.parse(res)
+      rescue Exception => ex
+        @@errors.push("Failed to parse splitter response from #{host}: #{ex}")
+        next
+      end
+      
       sIn = sj['insocks']['in.client']
       sIn = sj['insocks']['TOTAL'] unless sIn
       sOut = sj['outsocks']
@@ -116,7 +129,7 @@ class WTF
             tot[s] = Hash.new()
             tot[s]['lastmsg'] = Array.new()
             tot[s]['qsize'] = Array.new()
-            tot[s]['events'] = 0;
+            tot[s]['events'] = 0
             tot[s]['bytes'] = 0
           end
           tot[s]['lastmsg'].push(out[1]['lastmsg'])
@@ -166,13 +179,19 @@ class WTF
       begin
         res = Net::HTTP.get(@@fullHost[host], cUrl, 6983)
       rescue Exception => ex
-        puts "ERROR:\tFailed to get data from #{host}: #{ex}"
+        @@errors.push("Failed to get collector data from #{host}: #{ex}")
         next
       end
       
+      begin
+        sj = JSON.parse(res)
+      rescue Exception => ex
+        @@errors.push("Failed to parse collector response from #{host}: #{ex}")
+        next
+      end
+
       tot[host] = {'events' => 0, 'bytes' => 0, 'lastmsg' => Array.new()}
       
-      sj = JSON.parse(res)
       s = sj['outsocks']['out.splitter']
       tot[host]['lastmsg'].push(s['lastmsg'])
       m = s['metrics']['MultiInterval']
@@ -182,7 +201,7 @@ class WTF
       end
       
       t = tot[host]
-      displayHost = "Out." + host;
+      displayHost = "Out." + host
       puts "#{'%-15s'%displayHost}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg']}"
       tEvents += t['events']
       tBytes += t['bytes']
@@ -223,6 +242,11 @@ class WTF
     @@proxy.sort!
     @@indexer.sort!
   end
+
+  def showErrors()
+    puts @@errors.join("\n")
+  end
+
 end  
 
   
@@ -232,4 +256,5 @@ wtf.getTruth()
 wtf.showCollector()
 wtf.showSplitter()
 wtf.showSolr()
+wtf.showErrors()
 
