@@ -20,6 +20,7 @@
     cpx = cherry-pick -x
     d = diff
     db = branch -D
+    dbl = "!f() { git push loggly :$1; }; f"
     dbo = "!f() { git push origin :$1; }; f"
     e = checkout -p
     f = fetch
