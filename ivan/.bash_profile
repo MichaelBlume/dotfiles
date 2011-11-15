@@ -28,6 +28,8 @@ alias runserverssl='sudo stunnel4; HTTPS=on sudo /opt/loggly/web/app/manage.py r
 alias runserver='sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:80'
 alias loggly='cd $LOGGLY_APP'
 
+alias rungunicorn='sudo /opt/loggly/web/app/manage.py run_gunicorn --traceback --log-level debug --bind 0.0.0.0:80 --workers 3'
+
 export EDITOR=/usr/bin/vim
 export SVN_EDITOR=/usr/bin/vim
 export GREP_OPTIONS='--color=auto'

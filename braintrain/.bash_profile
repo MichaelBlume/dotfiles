@@ -16,9 +16,11 @@ alias bedit="vi ~/.bash_profile"
 alias rh="echo 'sourcing bash profile'; source ~/.bash_profile"
 alias stop="cd ~/src"
 alias apitest="./manage.py test api --with-coverage --cover-package=app.api --settings=testing_settings"
+alias serverkick="echo 'start damn you!'; sudo ./manage.py runserver_plus 0.0.0:80"
+alias stopapache="echo 'stooooop damn you!'; sudo /etc/init.d/apache2 stop"
 
-if [ -d /opt/loggly/web/app ]; then
-    cd /opt/loggly/web/app/
+if [ -d /opt/loggly/web/ ]; then
+    cd /opt/loggly/web/
 fi
 
 function parse_git_branch {

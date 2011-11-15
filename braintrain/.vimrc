@@ -1,6 +1,3 @@
-nmap :q :qa
-nmap :wq :wqa
-
 nmap H ^
 nmap L $
 
@@ -31,6 +28,5 @@ syntax on
 set ruler
 
 nmap <SPACE> <SPACE>:noh<CR>
-let loaded_matchparen = 1
 
 set autoindent

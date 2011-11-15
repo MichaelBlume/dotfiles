@@ -9,10 +9,11 @@ class WTF
   @@indexer = Array.new()
   @@proxy = Array.new()
   @@fullHost = Hash.new()
+  @@errors = Array.new()
   
   def showSolr()
     puts "========== SOLR =========="
-    puts "\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}\tlastMsg"
+    puts "\t\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}\tlastMsg"
 
     sUrl = '/solr/admin/cores?action=active&span=multiinterval&details=insocks'
     
@@ -22,18 +23,24 @@ class WTF
       begin 
         res = Net::HTTP.get(@@fullHost[host], sUrl, 8983)
       rescue Exception => ex
-        puts "ERROR:\tFailed to get data from #{host}: #{ex}"
+        @@errors.push("Failed to get solr data from #{host}: #{ex}")
         next
       end
 
-      sj = JSON.parse(res)
+      begin
+        sj = JSON.parse(res)
+      rescue Exception => ex
+        @@errors.push("Failed to parse solr response from #{host}: #{ex}")
+        next
+      end
+
 
       warns = Array.new()
       t = { 'events' => 0, 'bytes' => 0, 'lastmsg' => Array.new() }
       
       sj['insocks'].each do |p|
         next if p[0] == 'TOTAL'
-        pName = "In" + p[0].gsub(/.*\/\/proxy/, 'Prx').gsub(/\..*/, '')
+        pName = "In." + p[0].gsub(/.*\/\//, '').gsub(/.*\/\/proxy/, 'Prx').gsub(/\..*/, '')
         if p[1]['lastmsg'] > 10000
           warns.push("WARN:\tLast message sent #{p[1]['lastmsg']}ms ago from #{pName} to #{host}")
         end
@@ -50,35 +57,35 @@ class WTF
           tot[pName]['bytes'] += m['Bytes']['cnt']
         end
       end      
-      tot["Idx" + host.gsub(/solr/,'').gsub(/-/,'')] = t
+      tot["Idx." + host.gsub(/solr/,'').gsub(/-/,'')] = t
     end
     
     tEvents = tBytes = 0
     tot.keys.sort.each() do |k|
       next if k.start_with?('Idx')
       t = tot[k]
-      puts "#{k}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].sort.join(',')}"
+      puts "#{'%-15s'%k}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].sort.join(',')}"
       tEvents += t['events']
       tBytes += t['bytes']
     end
-    puts "InTOT\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
+    puts "In.TOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
     puts
     tEvents = tBytes = 0
     tot.keys.sort.each() do |k|
       next if k.start_with?('In')
       t = tot[k]
-      puts "#{k}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].sort.join(',')}"
+      puts "#{'%-15s'%k}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].sort.join(',')}"
       tEvents += t['events']
       tBytes += t['bytes']
     end
-    puts "IdxTOT\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
+    puts "Idx.TOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
     
 
   end
 
   def showSplitter()
     puts "========== SPLITTER =========="
-    puts "\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}\tlastMsg"
+    puts "\t\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}\tlastMsg"
     
     sUrl = '/admin?action=status&details=on&span=multiinterval'
 
@@ -90,37 +97,39 @@ class WTF
       begin 
         res = Net::HTTP.get(@@fullHost[host], sUrl, 7983)
       rescue Exception => ex
-        puts "ERROR:\tFailed to get data from #{host}: #{ex}"
+        @@errors.push("Failed to get splitter data from #{host}: #{ex}")
         next
       end
 
-      #GAH! fix broken JSON for "mode":
-      res.gsub!(/PIPELINE/, '"PIPELINE"')
-      res.gsub!(/PUBSUB/, '"PUBSUB"')
+      begin
+        sj = JSON.parse(res)
+      rescue Exception => ex
+        @@errors.push("Failed to parse splitter response from #{host}: #{ex}")
+        next
+      end
       
-      #GAH! remove broken JSON for "connection":
-      res.gsub!(/"connection".*\]\]",/ , "")
-
-      sj = JSON.parse(res)
       sIn = sj['insocks']['in.client']
+      sIn = sj['insocks']['TOTAL'] unless sIn
       sOut = sj['outsocks']
       sIndexers = sj['indexers']
 
-      tP = "In" + host.gsub(/proxy/, 'Prx')
+      tP = "In." + host.gsub(/proxy/, 'Prx')
       tot[tP] = Hash.new()
-      tot[tP]['lastmsg'] = Array.new().push(sIn['lastmsg'])
-      tot[tP]['qsize'] = Array.new().push(sIn['qsize'])
+      tot[tP]['lastmsg'] = Array.new()
+      tot[tP]['lastmsg'].push(sIn['lastmsg']) if sIn['lastmsg']
+      tot[tP]['qsize'] = Array.new()
+      tot[tP]['qsize'].push(sIn['qsize']) if sIn['qsize']
       tot[tP]['events'] = sIn['metrics']['MultiInterval']['Events']['cnt']
       tot[tP]['bytes'] = sIn['metrics']['MultiInterval']['Bytes']['cnt']
 
       sOut.each do |out|
         if (out[0].include?('IDX'))
-          s = out[0].gsub(/auto_out_/, '').gsub(/\..*/, '').gsub(/solr/, 'Out').gsub(/-/, '')
+          s = "Out." + out[0].gsub(/auto_out_/, '').gsub(/\..*/, '').gsub(/solr/, 'Out').gsub(/-/, '')
           if !tot.has_key?(s)
             tot[s] = Hash.new()
             tot[s]['lastmsg'] = Array.new()
             tot[s]['qsize'] = Array.new()
-            tot[s]['events'] = 0;
+            tot[s]['events'] = 0
             tot[s]['bytes'] = 0
           end
           tot[s]['lastmsg'].push(out[1]['lastmsg'])
@@ -133,23 +142,23 @@ class WTF
         end
       end
       t = tot[tP]
-      puts "#{tP}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].join(',')}\t#{t['qsize'].join(',')}"
+      puts "#{'%-15s'%tP}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].join(',')}\t#{t['qsize'].join(',')}"
       tEvents +=  t['events']
       tBytes +=  t['bytes']
     end
-    puts "InTOT\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
+    puts "In.TOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
     puts
     
     tEvents = tBytes = 0
     tot.keys.sort.each do |k|
       if k.start_with?("O")
         t = tot[k]
-        puts "#{k}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].sort.join(',')}\t#{t['qsize'].sort.join(',')}"
+        puts "#{'%-15s'%k}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].sort.join(',')}\t#{t['qsize'].sort.join(',')}"
         tEvents +=  t['events']
         tBytes +=  t['bytes']
       end
     end
-    puts "OutTOT\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
+    puts "Out.TOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
     if (warns.length > 0) 
       puts "#{warns.join('\n')}"
     end
@@ -158,7 +167,7 @@ class WTF
 
   def showCollector()
     puts "========== COLLECTOR =========="
-    puts "\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}"
+    puts "\t\t#{'%15s' % 'events'}\t#{'%15s' % 'bytes'}\t#{'%7s'%'eps'}\t#{'%7s'%'Bps'}\tlastMsg"
 
     tot = Hash.new()
     
@@ -170,16 +179,19 @@ class WTF
       begin
         res = Net::HTTP.get(@@fullHost[host], cUrl, 6983)
       rescue Exception => ex
-        puts "ERROR:\tFailed to get data from #{host}: #{ex}"
+        @@errors.push("Failed to get collector data from #{host}: #{ex}")
         next
       end
       
+      begin
+        sj = JSON.parse(res)
+      rescue Exception => ex
+        @@errors.push("Failed to parse collector response from #{host}: #{ex}")
+        next
+      end
+
       tot[host] = {'events' => 0, 'bytes' => 0, 'lastmsg' => Array.new()}
       
-      #GAH! fix broken JSON for "mode":
-      res.gsub!(/PIPELINE/, '"PIPELINE"')
-      
-      sj = JSON.parse(res)
       s = sj['outsocks']['out.splitter']
       tot[host]['lastmsg'].push(s['lastmsg'])
       m = s['metrics']['MultiInterval']
@@ -189,7 +201,8 @@ class WTF
       end
       
       t = tot[host]
-      puts "#{host}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg']}"
+      displayHost = "Out." + host
+      puts "#{'%-15s'%displayHost}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg']}"
       tEvents += t['events']
       tBytes += t['bytes']
       
@@ -199,7 +212,7 @@ class WTF
         puts "WARN:\tLast Message sent #{lastM}ms ago from #{host} to splitter"
       end        
     end
-    puts"OutTOT\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
+    puts"OutTOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
 
   end
 
@@ -213,7 +226,7 @@ class WTF
         s[1]['tags'].each do |t|
           if t == 'role:proxy=true'
             @@proxy.push(s[0])
-            puts "ADDING PROXY #{s[0]}"
+            #puts "ADDING PROXY #{s[0]}"
           elsif t == 'role:solr=true'
             isSolr = 1
           elsif t.start_with?('solr:levels=0,')
@@ -222,20 +235,26 @@ class WTF
         end
         if (isSolr and isIndexer)
           @@indexer.push(s[0])
-          puts "ADDING INDEXER #{s[0]}"
+          #puts "ADDING INDEXER #{s[0]}"
         end
       end
     end
     @@proxy.sort!
     @@indexer.sort!
   end
+
+  def showErrors()
+    puts @@errors.join("\n")
+  end
+
 end  
 
   
 span = ARGV[0]
 wtf = WTF.new()
 wtf.getTruth()
-#wtf.showCollector()
+wtf.showCollector()
 wtf.showSplitter()
 wtf.showSolr()
+wtf.showErrors()
 
