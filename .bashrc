@@ -3,7 +3,7 @@
 # for examples
 
 # Add home bin to path
-export PATH=/home/mike/bin:$PATH:/home/mike/workspace/google_appengine:/opt/loggly/web/app/bin
+export PATH=/home/mike/bin:$PATH:/home/mike/workspace/google_appengine:/opt/loggly/web/app/bin:/home/mike/workspace/js2coffee/bin
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
