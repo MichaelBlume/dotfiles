@@ -104,7 +104,7 @@ fi
 #My additions:
 
 export EDITOR=vim
-export PYTHONPATH=/home/mike/lib/python/
+export PYTHONPATH="$PYTHONPATH:/home/mike/lib/python/"
 
 # Git tab completion
 if [ -f ~/workspace/git/contrib/completion/git-completion.bash ]; then
