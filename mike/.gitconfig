@@ -91,6 +91,8 @@
     renames = copies
     # a,b = not so helpful
     mnemonicprefix = true
+    # Don't give up!
+    renameLimit = 5000
 [github]
     user = MichaelBlume
     token = 942380777196d7f16e92755198360fb1
