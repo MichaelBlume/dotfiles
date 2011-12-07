@@ -1,5 +1,38 @@
 #!/usr/bin/ruby
 #
+# Columns are
+#
+# idxAct     number of active indexing threads
+# inSock     number of 0MQ sockets indexers are reading from
+#
+# migMax     maximum number of migrator threads
+# migPri     priority of migrator threads
+# migQd      number of queued migration requests
+# migAct     number of migrator threads currently active
+# migOK      number of migrations that have completed successfully
+# migBad     number of migrations that have completed with some kind of failure
+#
+# chlMax
+#  ...       same as above, but for Chill threads (merging)
+# chlBad
+#
+# load       load average of the machine
+# threads    number of active threads in the app
+#
+# sAwake     number of shards that are AWAKE
+# sSleep     number of shards that are asleep
+#
+# freeM      MBytes of RAM allocated but not used in JVM
+# totM       MBytes of RAM allocated in JVM
+# maxM       Maximum MBytes of RAM available to JVM
+# usedM      MBytes of RAM in use by JVM
+#
+# latency    milliseconds latency to service action=SANITY request
+#
+# version    beSolr/solrserver version number
+# uptime     how long has solrserver been running?
+#
+
 require 'rubygems'
 require 'json'
 require 'net/http'
