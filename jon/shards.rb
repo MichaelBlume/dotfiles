@@ -44,7 +44,7 @@ class WTF
       s1 = shards[sn1]
       shards.keys.sort.each do |sn2|
         s2 = shards[sn2]
-        if (s2['start'] >= s1['start'] && s2['end'] <= s1['end'] && sn1 != sn2)
+        if (s2['start'] >= s1['start'] && s2['end'] <= s1['end'] && (s2['start] != s1['start'] || s2['end'] != s1['end']))
           if (!container[sn1])
             container[sn1] = Array.new()
           end
