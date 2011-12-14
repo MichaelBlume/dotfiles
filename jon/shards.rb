@@ -89,7 +89,7 @@ class WTF
     end
     if (container[sn])
       container[sn].each do |sn1|
-        dumpShard(sn1, shards, container, prefix + "    ", 0)
+        dumpShard(sn1, shards, container, prefix + "    ", nil)
       end
     end
   end
