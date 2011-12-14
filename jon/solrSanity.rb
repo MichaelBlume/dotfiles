@@ -93,7 +93,7 @@ class WTF
         stats.push("         #{'%2d'%s}s")
       elsif (alive < 3600000) 
         m = alive/60000
-        s = alive - (m*60000)
+        s = alive/1000 - (m*60)
         stats.push("      #{'%02d'%m}m#{'%02d'%s}s")
       else
         h = alive/3600000
