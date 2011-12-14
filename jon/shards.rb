@@ -54,32 +54,41 @@ class WTF
       end # sn2
     end # sn1
 
+    prevCid = nil
     prevStart = nil
     prevEnd = nil
     shards.keys.sort.each do |sn|
+      snParts = sn.split("-")
+      isDupe = nil
       if (!contained[sn])        
         if (prevEnd)
           if (shards[sn]['start'] > prevEnd)
-            snParts = sn.split("-")
             puts "\n#{prevEnd}\t#{shards[sn]['start']}\t********** MISSING **********\t\t\t\t#{snParts[0]}-#{prevEnd}-#{shards[sn]['start']}\n\n"
           elsif (shards[sn]['start'] == prevStart && shards[sn]['end'] == prevEnd)
-            snParts = sn.split("-")
-            puts "\n#{prevStart}\t#{prevEnd}\t********** DUPLICATE **********\t\t\t\t#{snParts[0]}-#{prevStart}-#{prevEnd}\n\n"
+            isDupe = 1
           end
         end
-        dumpShard(sn, shards, container, "")
+        if (prevCid && prevCid != snParts[0])
+          puts("\n\n============================== CID CHANGE ==============================\n\n")  
+        end
+        dumpShard(sn, shards, container, "", isDupe)
         prevStart = shards[sn]['start']
         prevEnd = shards[sn]['end']
+        prevCid = snParts[0]
       end
     end # sn
   end
 
-  def dumpShard(sn, shards, container, prefix)
+  def dumpShard(sn, shards, container, prefix, isDupe)
     s = shards[sn]
-    puts "#{s['start']}\t#{s['end']}\t#{'%-15s'%s['node']}\t#{s['lvl']}\t#{'%15d'%s['docs']}\t#{'%15d'%s['bytes']}\t#{prefix}#{s['name']}"
+    if (isDupe)
+      puts "\t\tDUPE\t\t#{'%-15s'%s['node']}\t#{s['lvl']}\t#{'%15d'%s['docs']}\t#{'%15d'%s['bytes']}\t#{prefix}#{s['name']}"
+    else    
+      puts "#{s['start']}\t#{s['end']}\t#{'%-15s'%s['node']}\t#{s['lvl']}\t#{'%15d'%s['docs']}\t#{'%15d'%s['bytes']}\t#{prefix}#{s['name']}"
+    end
     if (container[sn])
       container[sn].each do |sn1|
-        dumpShard(sn1, shards, container, prefix + "    ")
+        dumpShard(sn1, shards, container, prefix + "    ", 0)
       end
     end
   end
