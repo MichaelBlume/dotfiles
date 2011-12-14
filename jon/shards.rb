@@ -57,7 +57,7 @@ class WTF
     prevEnd = nil
     shards.keys.sort.each do |sn|
       if (!contained[sn])        
-        if (prevEnd && shards[sn]['start'] != prevEnd)
+        if (prevEnd && shards[sn]['start'] > prevEnd)
           snParts = sn.split("-")
           puts "\n#{prevEnd}\t#{shards[sn]['start']}\t********** MISSING **********\t\t\t\t#{snParts[0]}-#{prevEnd}-#{shards[sn]['start']}\n\n"
         end
