@@ -54,14 +54,21 @@ class WTF
       end # sn2
     end # sn1
 
+    prevStart = nil
     prevEnd = nil
     shards.keys.sort.each do |sn|
       if (!contained[sn])        
-        if (prevEnd && shards[sn]['start'] > prevEnd)
-          snParts = sn.split("-")
-          puts "\n#{prevEnd}\t#{shards[sn]['start']}\t********** MISSING **********\t\t\t\t#{snParts[0]}-#{prevEnd}-#{shards[sn]['start']}\n\n"
+        if (prevEnd)
+          if (shards[sn]['start'] > prevEnd)
+            snParts = sn.split("-")
+            puts "\n#{prevEnd}\t#{shards[sn]['start']}\t********** MISSING **********\t\t\t\t#{snParts[0]}-#{prevEnd}-#{shards[sn]['start']}\n\n"
+          elsif (shards[sn]['start'] == prevStart && shards[sn]['end'] == prevEnd)
+            snParts = sn.split("-")
+            puts "\n#{prevStart}\t#{prevEnd}\t********** DUPLICATE **********\t\t\t\t#{snParts[0]}-#{prevStart}-#{prevEnd}\n\n"
+          end
         end
         dumpShard(sn, shards, container, "")
+        prevStart = shards[sn]['start']
         prevEnd = shards[sn]['end']
       end
     end # sn
