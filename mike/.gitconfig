@@ -22,6 +22,7 @@
     db = branch -D
     dbl = "!f() { git push loggly :$1; }; f"
     dbo = "!f() { git push origin :$1; }; f"
+    ds = diff --stat
     e = checkout -p
     f = fetch
     fa = fetch --all
@@ -64,6 +65,7 @@
     sh = show
     sps = svn dcommit
     srb = svn rebase
+    ss = show --stat
     st = stash
     stc = stash clear
     std = stash drop

@@ -119,8 +119,12 @@ class WTF
       tot[tP]['lastmsg'].push(sIn['lastmsg']) if sIn['lastmsg']
       tot[tP]['qsize'] = Array.new()
       tot[tP]['qsize'].push(sIn['qsize']) if sIn['qsize']
-      tot[tP]['events'] = sIn['metrics']['MultiInterval']['Events']['cnt']
-      tot[tP]['bytes'] = sIn['metrics']['MultiInterval']['Bytes']['cnt']
+      if (sIn['metrics'] && sIn['metrics']['MultiInterval'] && sIn['metrics']['MultiInterval']['Events'])
+        tot[tP]['events'] = sIn['metrics']['MultiInterval']['Events']['cnt']
+        tot[tP]['bytes'] = sIn['metrics']['MultiInterval']['Bytes']['cnt']
+      else
+        tot[tP]['events'] = tot[tP]['bytes'] = 0
+      end
 
       sOut.each do |out|
         if (out[0].include?('IDX'))

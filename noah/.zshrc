@@ -12,14 +12,17 @@ alias ez="vim ~/.zshrc"
 alias stop="cd ~/src"
 alias ll="ls -l"
 alias rh="echo 'sourcing ~/.zshrc';source ~/.zshrc"
-export PROMPT='$%/ '
+alias node='/usr/local/bin/node'
+#adding hostname
+export PROMPT='$%M:%/ '
 
 #ssh DEV and BUILD
-alias svm="ssh -v 10.0.20.229"
+#alias svm="ssh -v 10.0.20.82" 
 alias sbuild="ssh -v build.loggly.org"
 
 #ssh PROD
-alias sproxy10="ssh -v proxy10.prod.loggly.net"
-alias sproxy9="ssh -v proxy9.prod.loggly.net"
-alias sproxy8="ssh -v proxy8.prod.loggly.net"
-alias sproxy7="ssh -v proxy7.prod.loggly.net"
+#alias sproxy10="ssh -v proxy10.prod.loggly.net"
+#alias sproxy9="ssh -v proxy9.prod.loggly.net"
+#alias sproxy8="ssh -v proxy8.prod.loggly.net"
+#alias sproxy7="ssh -v proxy7.prod.loggly.net"
+

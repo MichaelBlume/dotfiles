@@ -5,14 +5,12 @@
 # idxAct     number of active indexing threads
 # inSock     number of 0MQ sockets indexers are reading from
 #
-# migMax     maximum number of migrator threads
-# migPri     priority of migrator threads
 # migQd      number of queued migration requests
 # migAct     number of migrator threads currently active
 # migOK      number of migrations that have completed successfully
 # migBad     number of migrations that have completed with some kind of failure
 #
-# chlMax
+# chlQd
 #  ...       same as above, but for Chill threads (merging)
 # chlBad
 #
@@ -44,7 +42,7 @@ class WTF
 
   def showSanity()
     sUrl = '/solr/admin/cores?action=sanity'
-    labels = [ 'idxAct', 'inSock', 'migMax', 'migPri', 'migQd', 'migAct', 'migOK', 'migBad', 'chlMax', 'chlPri', 'chlQd', 'chlAct', 'chlOK', 'chlBad', 'load', 'threads', 'sAwake', 'sSleep', 'freeM', 'totM', 'maxM', 'usedM', 'latency', 'version', 'uptime']
+    labels = [ 'idxAct', 'inSock', 'migQd', 'migAct', 'migOK', 'migBad', 'chlQd', 'chlAct', 'chlOK', 'chlBad', 'load', 'threads', 'sAwake', 'sSleep', 'freeM', 'totM', 'maxM', 'usedM', 'latency', 'version', "\tuptime"]
     puts "#{'%-30s'%'Host'}\t#{labels.join("\t")}"
     @@solr.each do |host|
 
@@ -89,20 +87,23 @@ class WTF
 
       alive = sd['app']['uptimeMillis']
       if (alive < 1000) 
-        stats.push('< 1sec');
+        stats.push('         <1s');
       elsif (alive < 60000)
-        stats.push((alive/1000).to_s + "s")
+        s = alive/1000
+        stats.push("         #{'%2d'%s}s")
       elsif (alive < 3600000) 
-        stats.push((alive/60000).to_s + "m")
+        m = alive/60000
+        s = alive/1000 - (m*60)
+        stats.push("      #{'%02d'%m}m#{'%02d'%s}s")
       else
         h = alive/3600000
         m = (alive % 3600000) / 60000
         if (h > 24)
           d = h/24
           h = h - d*24
-          stats.push(d.to_s + "d " + h.to_s + "h " + m.to_s + "m")
+          stats.push("#{'%2d'%d}d#{'%02d'%h}h#{'%02d'%m}m")
         else
-          stats.push(h.to_s + "h " + m.to_s + "m")
+          stats.push("   #{'%2d'%h}h#{'%02d'%m}m")
         end
       end
 
@@ -114,14 +115,6 @@ class WTF
     def addCounts(sd, role, stats)
       if (sd[role])
         md = sd[role]
-        if (md['pool'])
-          stats.push(md['pool']['max'] || 0)
-          stats.push(md['pool']['priority'] || 0)
-        else
-          stats.push(0)
-          stats.push(0)
-        end
-        
         ['queued', 'active', 'success', 'fail'].each do |c|
           cd = md[c]
           if (cd)
