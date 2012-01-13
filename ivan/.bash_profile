@@ -23,12 +23,14 @@ alias l='ls -asl'
 alias ls='/bin/ls --color'
 
 # Loggly stuff
+MANAGE_PATH="/opt/loggly/web/app/manage.py"
+ADDRESS_PORT="0.0.0.0:80"
 export LOGGLY_APP='/opt/loggly/web/app'
 alias runserverssl='sudo stunnel4; HTTPS=on sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:443'
-alias runserver='sudo /opt/loggly/web/app/manage.py runserver_plus 0.0.0.0:80'
+alias runserver='sudo $MANAGE_PATH runserver_plus $ADDRESS_PORT'
+alias rungunicorn='sudo $MANAGE_PATH run_gunicorn --traceback --log-level debug --bind $ADDRESS_PORT --workers 5'
 alias loggly='cd $LOGGLY_APP'
 
-alias rungunicorn='sudo /opt/loggly/web/app/manage.py run_gunicorn --traceback --log-level debug --bind 0.0.0.0:80 --workers 3'
 
 export EDITOR=/usr/bin/vim
 export SVN_EDITOR=/usr/bin/vim
