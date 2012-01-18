@@ -38,7 +38,8 @@ set splitbelow
 set splitright
 
 " GUI
-colorscheme desert
+" colorscheme desert
+colorscheme solarized
 set guioptions=aeimtr
     " a = autoselect
     " e = show guitabline
