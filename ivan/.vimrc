@@ -4,6 +4,9 @@
 " important settings
 set nocompatible
 
+" start pathogen
+call pathogen#infect()
+
 " reading/writing files
 set modeline
 set modelines=10
@@ -39,6 +42,7 @@ set splitright
 
 " GUI
 " colorscheme desert
+set background=dark
 colorscheme solarized
 set guioptions=aeimtr
     " a = autoselect
