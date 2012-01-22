@@ -1,2 +1,6 @@
 *.pyc
 build/
+*.hi
+*.o
+*.tix
+.hpc
