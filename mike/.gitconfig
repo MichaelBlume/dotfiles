@@ -29,6 +29,7 @@
     fl = fetch loggly
     g = grep
     h = help
+    i = init
     irb = rebase --interactive
     irbl = rebase --interactive loggly/master
     irbm = rebase --interactive master
