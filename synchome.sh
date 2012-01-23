@@ -43,6 +43,6 @@ rsync $source | awk '/^d/ && $NF !~ /^\./ { print $NF }' \
   
   # run rsync as $user to prevent accidents
   echo "Updating /home/$user..."
-  su -c "rsync -r --exclude=.svn $source/$user/ /home/$user/" $user
+  su -c "rsync -r --exclude=.svn $source/$user /home/" $user
 done
 
