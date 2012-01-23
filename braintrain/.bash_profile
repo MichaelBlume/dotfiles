@@ -18,6 +18,7 @@ alias stop="cd ~/src"
 alias apitest="./manage.py test api --with-coverage --cover-package=app.api --settings=testing_settings"
 alias serverkick="echo 'start damn you!'; sudo ./manage.py runserver_plus 0.0.0:80"
 alias stopapache="echo 'stooooop damn you!'; sudo /etc/init.d/apache2 stop"
+alias selthatshiz="echo 'SELENIUUUUMMMM!!!'; DISPLAY=:0 java -jar selenium-server-standalone-2.15.0.jar"
 
 if [ -d /opt/loggly/web/ ]; then
     cd /opt/loggly/web/
