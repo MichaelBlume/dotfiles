@@ -7,6 +7,9 @@ set nocompatible
 " start pathogen
 call pathogen#infect()
 
+" map ; to :
+nnoremap ; :
+
 " reading/writing files
 set modeline
 set modelines=10
