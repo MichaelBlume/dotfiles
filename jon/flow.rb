@@ -173,6 +173,7 @@ class WTF
     end
     puts "Out.TOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
     if (warns.length > 0) 
+      puts "\n"
       puts "#{warns.join("\n")}"
     end
   end
@@ -187,6 +188,7 @@ class WTF
     cUrl = '/admin?action=status&span=multiinterval&details=outsocks'
 
     tEvents = tBytes = 0
+    warns = Array.new()
 
     @@proxy.each do |host|
       begin
@@ -222,11 +224,14 @@ class WTF
       lastM = sj['outsocks']['out.splitter']['lastmsg']
       #puts "#{host} last sent msg to splitter #{lastM}ms ago"
       if (lastM > 10000)
-        puts "WARN:\tLast Message sent #{lastM}ms ago from #{host} to splitter"
+        warns.push("WARN:\tLast Message sent #{lastM}ms ago from #{host} to splitter")
       end        
     end
-    puts"OutTOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
-
+    puts "OutTOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
+    if (warns.length > 0)
+      puts "\n"
+      puts "#{warns.join("\n")}"
+    end
   end
 
   def getTruth
