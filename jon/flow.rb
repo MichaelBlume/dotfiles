@@ -38,26 +38,28 @@ class WTF
       warns = Array.new()
       t = { 'events' => 0, 'bytes' => 0, 'lastmsg' => Array.new() }
       
-      sj['insocks'].each do |p|
-        next if p[0] == 'TOTAL'
-        pName = "In." + p[0].gsub(/.*\/\//, '').gsub(/.*\/\/proxy/, 'Prx').gsub(/\..*/, '')
-        if p[1]['lastmsg'] > 10000
-          warns.push("WARN:\tLast message sent #{p[1]['lastmsg']}ms ago from #{pName} to #{host}")
-        end
-        m = p[1]['metrics']['MultiInterval']
-        if !tot.has_key?(pName)
-          tot[pName] = {'events' => 0, 'bytes' => 0, 'lastmsg' => Array.new()}
-        end
-        
-        if m['Events'] and m['Events']['cnt'] > 0
-          t['lastmsg'].push(p[1]['lastmsg'])
-          t['events'] += m['Events']['cnt']
-          tot[pName]['events'] += m['Events']['cnt']
-          t['bytes'] += m['Bytes']['cnt']
-          tot[pName]['bytes'] += m['Bytes']['cnt']
-        end
-      end      
-      tot["Idx." + host.gsub(/solr/,'').gsub(/-/,'')] = t
+      if (sj['insocks']) 
+        sj['insocks'].each do |p|
+          next if p[0] == 'TOTAL'
+          pName = "In." + p[0].gsub(/.*\/\//, '').gsub(/.*\/\/proxy/, 'Prx').gsub(/\..*/, '')
+          if p[1]['lastmsg'] > 10000
+            warns.push("WARN:\tLast message sent #{p[1]['lastmsg']}ms ago from #{pName} to #{host}")
+          end
+          m = p[1]['metrics']['MultiInterval']
+          if !tot.has_key?(pName)
+            tot[pName] = {'events' => 0, 'bytes' => 0, 'lastmsg' => Array.new()}
+          end
+          
+          if m['Events'] and m['Events']['cnt'] > 0
+            t['lastmsg'].push(p[1]['lastmsg'])
+            t['events'] += m['Events']['cnt']
+            tot[pName]['events'] += m['Events']['cnt']
+            t['bytes'] += m['Bytes']['cnt']
+            tot[pName]['bytes'] += m['Bytes']['cnt']
+          end
+        end      
+        tot["Idx." + host.gsub(/solr/,'').gsub(/-/,'')] = t
+      end
     end
     
     tEvents = tBytes = 0
@@ -141,10 +143,17 @@ class WTF
             warns.push("WARN:\tLast Message sent #{out[1]['lastmsg']}ms ago from #{host} to #{out[0]}")
           end
           tot[s]['qsize'].push(out[1]['qsize'])
-          tot[s]['events'] += out[1]['metrics']['MultiInterval']['Events']['cnt']
-          tot[s]['bytes'] += out[1]['metrics']['MultiInterval']['Bytes']['cnt']
+          if (out[1]['metrics'] && out[1]['metrics']['MultiInterval'])
+            if (out[1]['metrics']['MultiInterval']['Events'])
+              tot[s]['events'] += out[1]['metrics']['MultiInterval']['Events']['cnt']
+            end
+            if (out[1]['metrics']['MultiInterval']['Bytes'])
+              tot[s]['bytes'] += out[1]['metrics']['MultiInterval']['Bytes']['cnt']
+            end
+          end
         end
       end
+
       t = tot[tP]
       puts "#{'%-15s'%tP}\t#{'%15d' % t['events']}\t#{'%15d' % t['bytes']}\t#{'%7d' % (t['events']/60)}\t#{'%7d' % (t['bytes']/60)}\t#{t['lastmsg'].join(',')}\t#{t['qsize'].join(',')}"
       tEvents +=  t['events']
@@ -164,7 +173,7 @@ class WTF
     end
     puts "Out.TOT\t\t#{'%15d' % tEvents}\t#{'%15d' % tBytes}\t#{'%7d' % (tEvents/60)}\t#{'%7d' % (tBytes/60)}"
     if (warns.length > 0) 
-      puts "#{warns.join('\n')}"
+      puts "#{warns.join("\n")}"
     end
   end
 
