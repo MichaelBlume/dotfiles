@@ -52,10 +52,15 @@ class WTF
         t2 = Time.now
         latency = ((t2 - t1)*1000).floor
       rescue Exception => ex
-        puts "ERROR:\tFailed to get data from #{host}: #{ex}"
+        puts "ERROR:\tFailed to get data from #{host}"
         next
       end
-      sj = JSON.parse(res)
+      begin
+        sj = JSON.parse(res)
+      rescue Exception => ex
+        puts "ERROR\tFailed to parse data from #{host}"
+        next
+      end
       sd = sj['sanity']
 
       stats = Array.new()
