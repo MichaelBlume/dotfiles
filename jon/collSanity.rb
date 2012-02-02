@@ -93,7 +93,9 @@ class WTF
       sj['servers'].each do |s|
         @@fullHost[s[0]] = s[0] + '.' + sj['deployment'] + '.loggly.net'
         s[1]['tags'].each do |t|
-          if t == 'role:proxy=true'
+          if t == 'role:funnellog=true'
+            @@proxy.push(s[0])
+          elsif t == 'role:proxy=true'
             @@proxy.push(s[0])
           end
         end

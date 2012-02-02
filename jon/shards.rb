@@ -199,9 +199,10 @@ class WTF
         @@fullHost[s[0]] = s[0] + '.' + sj['deployment'] + '.loggly.net'
         isSolr = isIndexer = nil
         s[1]['tags'].each do |t|
-          if t == 'role:proxy=true'
+          if t == 'role:funnellog=true'
             @@proxy.push(s[0])
-#            puts "ADDING PROXY #{s[0]}"
+          elsif t == 'role:proxy=true'
+            @@proxy.push(s[0])
           elsif t == 'role:solr=true'
             isSolr = 1
           elsif t.start_with?('solr:levels=0,')
