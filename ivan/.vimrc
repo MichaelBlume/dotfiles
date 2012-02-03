@@ -14,6 +14,7 @@ nnoremap ; :
 set modeline
 set modelines=10
 set nobackup
+set noswapfile
 
 " messages, info
 set ruler
