@@ -1,0 +1,4 @@
+alias bnsol="bounce loggly-solrserver"
+alias bncol="bounce becollector-loggly"
+alias bnspl="bounce besplitter-loggly"
+
