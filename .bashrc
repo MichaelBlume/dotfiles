@@ -106,6 +106,11 @@ fi
 
 #My additions:
 
+#Ignore certain suffixes for purposes of completion
+
+export FIGNORE=".hi:.o"
+
+
 export EDITOR=vim
 export PYTHONPATH="$PYTHONPATH:/home/mike/lib/python/"
 
