@@ -1,10 +1,16 @@
 [extensions]
 hgext.bookmarks = 
 hggit = 
-hgk = /home/mike/workspace/hg/hgext/hgk.py
+mq =
+record =
+hgk =
+rebase =
+transplant =
+hgshelve = /home/mike/workspace/hgshelve/hgshelve.py
 
 [git]
 intree = 1
+branch_bookmark_suffix=hg/
 
 [ui]
 username = Mike Blume <mike@loggly.com>
