@@ -6,7 +6,7 @@
 [ -f /etc/bash.bashrc ] && source /etc/bash.bashrc
 
 # Add home bin to path
-export PATH=/home/mike/bin:/Users/mike/bin:$PATH:/home/mike/workspace/google_appengine:/opt/loggly/web/app/bin:/home/mike/workspace/js2coffee/bin
+export PATH=/home/mike/bin:/Users/mike/bin:/home/mike/.cabal/bin:$PATH:/home/mike/workspace/google_appengine:/opt/loggly/web/app/bin:/home/mike/workspace/js2coffee/bin
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
