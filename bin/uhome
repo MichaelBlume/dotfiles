@@ -1,0 +1,4 @@
+gith="git --git-dir workspace/homedirs/.git"
+$gith fetch mike
+$gith ms mike/master
+$gith push
