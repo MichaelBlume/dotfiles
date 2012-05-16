@@ -90,7 +90,7 @@ do
     then
         echo `date` ": INFO: $fullname already exists"
     else
-        echo `data` ": INFO: Downloading $fullname"
+        echo `date` ": INFO: Downloading $fullname"
         sudo wget http://repo.loggly.org/repo/pool/files/$fullname
     fi
 done
