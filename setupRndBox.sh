@@ -83,7 +83,7 @@ fi
 
 echo `date` ": INFO : Downloading tarballs"
 cd /opt
-for  filename  in beHammer beSolr hammer.test.opt solr.test.opt zkversion-2 zmq.prod.usr.lib zookeeper.test.version-2 zoto.log
+for  filename  in beHammer beSolr hammer.test.opt solr.test.opt zk.version-2 zmq.prod.usr.lib zookeeper.test.version-2 zoto.log
 do
     fullname=$filename.tgz
     if [ -e /opt/$fullname ]
