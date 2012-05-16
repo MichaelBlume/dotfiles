@@ -81,13 +81,28 @@ EOF
     sudo mv /tmp/etcHosts /etc/hosts
 fi
 
+echo `date` ": INFO : Downloading tarballs"
+cd /opt
+for  filename  in beHammer beSolr hammer.test.opt solr.test.opt zkversion-2 zmq.prod.usr.lib zookeeper.test.version-2 zoto.log
+do
+    fullname=$filename.tgz
+    if [ -e /opt/$fullname ]
+    then
+        echo `date` ": INFO: $fullname already exists"
+    else
+        echo `data` ": INFO: Downloading $fullname"
+        sudo wget http://repo.loggly.org/repo/pool/files/$fullname
+    fi
+done
+
+
 cd /usr/lib
 if [ -e ./libjzmq.a ]
 then
     echo `date` ": WARN : Skipping install of 0mq in /usr/lib - already done"
 else
     echo `date` ": INFO : Installing 0mq in /usr/lib"
-    sudo tar zxvf /home/jon/zmq.prod.usr.lib.tgz
+    sudo tar zxvf /opt/zmq.prod.usr.lib.tgz
 fi
 
 setupSolr () {
@@ -101,7 +116,7 @@ setupSolr () {
 	echo `date` ": INFO : untar'ing beSolr into /opt"
 	cd /opt
 	sudo rm -rf beSolr
-	sudo tar zxvf /home/jon/solr.test.opt.tgz
+	sudo tar zxvf /opt/solr.test.opt.tgz
 
 	sudo cp /opt/beSolr/dist/solr/solr.xml.Bootstrap /opt/beSolr/dist/solr/solr.xml
 	sudo chmod ugo+w /opt/beSolr/dist/solr/solr.xml
@@ -198,7 +213,7 @@ setupHammer() {
 
 	echo `date` ": INFO : untar'ing collector, splitter hammer into /opt"
 	cd /opt
-	sudo tar zxvf /home/jon/hammer.test.opt.tgz
+	sudo tar zxvf /opt/hammer.test.opt.tgz
 
 	echo `date` ": INFO : Fixing Loggly.properties for collector"
 	cd /opt/beCollector/dist/etc
@@ -301,7 +316,7 @@ EOF
 	sudo cp /tmp/newZooCfg /etc/zookeeper/zoo.cfg
 	cd /mnt/zookeeper/data/
 	sudo rm -rf version-2
-	sudo tar zxvf /home/jon/zookeeper.test.version-2.tgz
+	sudo tar zxvf /opt/zookeeper.test.version-2.tgz
 	sudo rm /mnt/log/zookeeper/zoo*
 
 	echo `date` ": INFO : Starting zookeeper in standalone mode"
