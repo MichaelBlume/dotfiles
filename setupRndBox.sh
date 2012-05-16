@@ -336,7 +336,7 @@ case $HOSTNAME in
 	hNum=$((tNum-4))
     hName="hammer$hNum"
     sName="test$tNum"
-    setupSolr hName sName
+    setupSolr "$hName" "$sName"
 	
 	;;
 
@@ -357,7 +357,7 @@ case $HOSTNAME in
     hName="hammer$hNum"
     sName="test$tNum"
 
-    setupHammer hName sName
+    setupHammer "$hName" "$sName"
     ;;
 
     solr15-01*)
