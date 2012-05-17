@@ -317,7 +317,7 @@ EOF
 	echo `date` ": INFO : Fixing zookeeper to run in standalone mode"
 	grep -v 3888 /etc/zookeeper/zoo.cfg | grep -v ensemble > /tmp/newZooCfg
 	sudo cp /tmp/newZooCfg /etc/zookeeper/zoo.cfg
-    cd /var/zookeeper/
+	cd /var/zookeeper/
 	sudo rm -rf version-2
 	sudo tar zxvf /opt/zookeeper.test.version-2.tgz
 	sudo rm /mnt/log/zookeeper/zoo*
