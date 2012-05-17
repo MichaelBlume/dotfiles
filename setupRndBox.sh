@@ -58,15 +58,17 @@ else
 10.218.19.191	hammer6 hammer6.rnd.loggly.net
 10.218.31.167	hammer7 hammer7.rnd.loggly.net
 10.102.55.116	hammer8 hammer8.rnd.loggly.net
+10.11.47.20	    hammer9 hammer9.rnd.loggly.net
 
-10.16.41.70	test05 test05.rnd.loggly.net
+10.16.41.70	    test05 test05.rnd.loggly.net
 10.16.33.236	test06 test06.rnd.loggly.net
 10.156.162.78	test07 test07.rnd.loggly.net
 10.156.162.43	test08 test08.rnd.loggly.net
-10.76.43.99	test09 test09.rnd.loggly.net
+10.76.43.99	    test09 test09.rnd.loggly.net
 10.78.238.154	test10 test10.rnd.loggly.net
 10.100.177.146	test11 test11.rnd.loggly.net
 10.32.194.96	test12 test12.rnd.loggly.net
+10.156.162.96	test13 test13.rnd.loggly.net
 
 # All hosts in colo2
 
