@@ -200,6 +200,7 @@ EOF
 	sudo chmod ugo+rwx /mnt/test/shards
 	sudo rm -rf /opt/beSolr/dist/solr/shards
 	sudo ln -s /mnt/test/shards /opt/beSolr/dist/solr/shards
+    curl 'http://localhost:8983/solr/admin/cores?action=setlevels&min=0&max=0'
 }
 # end of setupSolr
 
