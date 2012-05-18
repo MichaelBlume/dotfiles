@@ -220,6 +220,7 @@ setupHammer() {
     
     echo `date` ": INFO : Shutting down collector, splitter, tapper, and zookeeper"
     supervisorctl stop becollector-loggly besplitter-loggly
+    sudo apt-get install hadoop-zookeeper-server
     sudo /etc/init.d/hadoop-zookeeper-server stop
 
 
