@@ -121,7 +121,7 @@ elif [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
-complete -o default -o nospace -F _git g
+complete -o default -o nospace -F __git_wrap_git g
 
 # Set Vim home
 #export VIM=/home/mike/.vim
