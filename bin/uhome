@@ -1,6 +1,7 @@
 git push
-git="git --git-dir workspace/homedirs/.git"
-$git fetch mike
-$git ms mike/master
-$git pull
-$git push
+cd workspace/homedirs
+git fetch mike
+git ms mike/master
+git pull
+git push
+cd
