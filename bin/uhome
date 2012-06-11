@@ -1,7 +1,7 @@
 git push
 cd workspace/homedirs
 git fetch mike
-git ms mike/master
-git pull
+git ms mike/master --no-edit
+git pull --no-edit
 git push
 cd
