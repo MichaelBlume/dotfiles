@@ -39,4 +39,4 @@ alias mine="sudo chown -R $USER:$USER ."
 
 alias resolr="supervisorctl restart loggly-solrserver"
 
-alias fastpuppet="sudo PUPPET_PATH=/home/mike/workspace/infra/puppet NO_PUPPET_STORECONFIG=true puppetnow"
+alias fastpuppet="sudo PUPPET_PATH=/home/mike/workspace/Infrastructure/puppet NO_PUPPET_STORECONFIG=true puppetnow"
