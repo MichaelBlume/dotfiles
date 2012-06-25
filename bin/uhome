@@ -3,6 +3,6 @@ git push
 cd workspace/homedirs
 git fetch mike
 git ms mike/master --no-edit
-git pull --no-edit
+git pull
 git push
 cd
