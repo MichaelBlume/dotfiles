@@ -135,10 +135,6 @@ fi
 
 set -o vi
 
-if [ -d /opt/loggly/web/app ]; then
-    cd /opt/loggly/web/app/
-fi
-
 source ~/.git-prompt.sh
 function proml {
   local        BLUE="\[\033[0;34m\]"
