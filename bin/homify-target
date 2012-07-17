@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sudo useradd -G admin mike --shell /bin/bash
+tar -xzf mike.tar.gz
+sudo cp -r home/mike/workspace/homedirs/mike/ /home
+sudo chown -R mike:mike /home/mike
+echo "mike ALL=(ALL) NOPASSWD:ALL" > 91-mike
+sudo mv 91-mike /etc/sudoers.d/
+sudo chown root:root /etc/sudoers.d/91-mike 
+sudo chmod 0440 /etc/sudoers.d/91-mike 
+

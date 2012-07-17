@@ -1,0 +1,7 @@
+#!/bin/bash
+
+tar -czf mike.tar.gz ~/workspace/homedirs/mike
+scp mike.tar.gz ubuntu@$1:
+rm mike.tar.gz
+scp ~/bin/homify-target ubuntu@$1:
+ssh ubuntu@$1 bash homify-target
