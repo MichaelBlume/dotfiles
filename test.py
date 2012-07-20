@@ -2,6 +2,12 @@ import zmq
 from time import time
 from multiprocessing import Process
 
+def chase_tail(filename):
+    while True:
+        with open(filename, 'r') as handle:
+            for line in handle:
+                yield line
+
 def ventilator(batch_size, test_size):
     """task ventilator function"""
 
@@ -19,12 +25,15 @@ def ventilator(batch_size, test_size):
     """initiate counter for tasks sent"""
     current_batch_count = 0
 
+    """start getting some messages"""
+    msg_iter = chase_tail('/var/log/syslog')
+
     """start the message loop"""
     for x in range(test_size):
 
         """send until we reach our batch limit"""
         while current_batch_count < batch_size:
-            send_sock.send("task")
+            send_sock.send(msg_iter.next())
             current_batch_count += 1
 
         """reset the batch count"""
