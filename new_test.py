@@ -41,7 +41,6 @@ class ZMQTest(object):
         while self.num_received < self.test_size:
             self.receive()
 
-class SimpleTest(ZMQTest):
     def init_send(self):
         self.socket = self.context.socket(self.send_type)
         self.socket.bind("tcp://*:5555")
@@ -50,7 +49,7 @@ class SimpleTest(ZMQTest):
         self.socket = self.context.socket(self.receive_type)
         self.socket.connect("tcp://*:5555")
 
-class PipeLineTest(SimpleTest):
+class PipeLineTest(ZMQTest):
     receive_type = zmq.PULL
     send_type = zmq.PUSH
 
@@ -62,7 +61,7 @@ class PipeLineTest(SimpleTest):
         self.socket.recv()
         self.num_received += 1
 
-class ReqRepTest(SimpleTest):
+class ReqRepTest(ZMQTest):
     receive_type = zmq.REQ
     send_type = zmq.REP
 
