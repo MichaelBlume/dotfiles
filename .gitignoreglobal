@@ -4,3 +4,4 @@ build/
 *.o
 *.tix
 .hpc
+.DS_Store
