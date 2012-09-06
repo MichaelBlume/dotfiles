@@ -3,8 +3,8 @@ import envoy
 import requests
 import time
 
-r = envoy.run("find /home/mike/Dropbox/writing | xargs wc --bytes | tail -n1")
-nothing, count, total = r.std_out.split(' ')
+r = envoy.run("find /Users/mike/Dropbox/writing | grep -v DS_Store | xargs wc -c | tail -n1")
+count, total = r.std_out.split()
 kb_written = int(count) // 1024
 print kb_written
 
