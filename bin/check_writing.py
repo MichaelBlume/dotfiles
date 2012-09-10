@@ -6,7 +6,6 @@ import time
 r = envoy.run("find /Users/mike/Dropbox/writing | grep -v DS_Store | xargs wc -c | tail -n1")
 count, total = r.std_out.split()
 kb_written = int(count) // 1024
-print kb_written
 
 url = "https://www.beeminder.com/api/v1/users/mblume/goals/writing/datapoints.json"
 r = requests.post(url,
@@ -14,4 +13,8 @@ r = requests.post(url,
         ,'timestamp':time.time()
         ,'value': kb_written
         })
-print r.text
+with open('/Users/mike/.logs/writing_outputs', 'a') as f:
+    f.write(str(kb_written))
+    f.write('\n')
+    f.write(r.text)
+    f.write('\n')
