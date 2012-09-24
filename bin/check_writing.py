@@ -3,8 +3,8 @@ import envoy
 import requests
 import time
 
-r = envoy.run("find /Users/mike/Dropbox/writing | grep -v DS_Store | xargs wc -c | tail -n1")
-count, total = r.std_out.split()
+r = envoy.run("find /Users/mike/Dropbox/writing | grep -v DS_Store | xargs wc -c")
+count = r.std_out.split()[-2]
 kb_written = int(count) // 1024
 
 url = "https://www.beeminder.com/api/v1/users/mblume/goals/writing/datapoints.json"
