@@ -2,7 +2,7 @@
 
 sudo useradd -G admin mike --shell /bin/bash
 tar -xzf mike.tar.gz
-sudo cp -r home/mike/workspace/homedirs/mike/ /home
+sudo cp -r Users/mike/workspace/homedirs/mike/ /home
 sudo chown -R mike:mike /home/mike
 echo "mike ALL=(ALL) NOPASSWD:ALL" > 91-mike
 sudo mv 91-mike /etc/sudoers.d/
