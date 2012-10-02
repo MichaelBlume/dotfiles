@@ -14,7 +14,11 @@ r = requests.post(url,
         ,'value': kb_written
         })
 with open('/Users/mike/.logs/writing_outputs', 'a') as f:
+    f.write('kb written: ')
     f.write(str(kb_written))
+    f.write('\n')
+    f.write('excess bytes: ')
+    f.write(str(int(count) % 1024))
     f.write('\n')
     f.write(r.text)
     f.write('\n')
