@@ -1,25 +1,32 @@
-#!/usr/bin/python
-import sys, time
+#!/usr/bin/env runhaskell
+import Data.List
+import System.Posix
+import Control.Concurrent
 
-def tl():
-    s = sys.stdin.readline().rstrip()
-    if not s:
-        sys.exit()
-    print s
-    return s
+takeBlock :: [String] -> (String, [String])
+takeBlock (firstLine:moreLines) = (intercalate "\n" (firstLine:indLines),restLines) where
+  (indLines, restLines) = span (isPrefixOf " ") moreLines
 
-def tls():
-    while True:
-        s = tl()
-        if not s.startswith(' '):
-            return s
+data InfoOrError = Error String Int
+                 | Info String
 
-def main(context_below=1, sleep_time=1):
-    while True:
-        if "ERROR" in tls():
-            for i in range(context_below):
-                tls()
-            time.sleep(sleep_time)
+processBlock :: String -> InfoOrError
+processBlock block = if ("ERROR" `isInfixOf` block)
+  then Error block 5000000
+  else Info block
 
-if __name__  == '__main__':
-    main()
+makeBlocks [] = []
+makeBlocks lines = (block:(makeBlocks remLines)) where
+  (block, remLines) = takeBlock lines
+
+processStream :: String -> [InfoOrError]
+processStream = map processBlock . makeBlocks . lines
+
+actOn :: InfoOrError -> IO()
+actOn (Error block secs) = putStrLn block >> threadDelay secs
+actOn (Info block) = putStrLn block
+
+main = do
+  input <- getContents
+  mapM actOn $ processStream input
+  return ()
