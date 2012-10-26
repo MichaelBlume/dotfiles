@@ -4,7 +4,8 @@ import System.Posix
 import Control.Concurrent
 
 takeBlock :: [String] -> (String, [String])
-takeBlock (firstLine:moreLines) = (intercalate "\n" (firstLine:indLines),restLines) where
+takeBlock (firstLine:moreLines) = (block, restLines) where
+  block = intercalate "\n" (firstLine:indLines)
   (indLines, restLines) = span (isPrefixOf " ") moreLines
 
 data InfoOrError = Error String Int
