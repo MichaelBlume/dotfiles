@@ -26,7 +26,7 @@ actOn :: InfoOrError -> IO()
 actOn (Error block secs) = putStrLn block >> threadDelay secs
 actOn (Info block) = putStrLn block
 
+main :: IO ()
 main = do
   input <- getContents
-  mapM actOn $ processStream input
-  return ()
+  mapM_ actOn $ processStream input
