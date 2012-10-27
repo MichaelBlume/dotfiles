@@ -12,14 +12,14 @@ data PrintOrSleep = Print String
                   | Sleep Int
 
 processBlock :: String -> [PrintOrSleep] -> [PrintOrSleep]
-processBlock block acts = (Print block : restActs) where
-  restActs = if ("ERROR" `isInfixOf` block)
-    then (Sleep 5000000 : acts)
+processBlock block acts = Print block : restActs where
+  restActs = if "ERROR" `isInfixOf` block
+    then Sleep 5000000 : acts
     else acts
 
 makeBlocks :: [String] -> [String]
 makeBlocks [] = []
-makeBlocks lines = (block:(makeBlocks remLines)) where
+makeBlocks lines = block : makeBlocks remLines where
   (block, remLines) = takeBlock lines
 
 processStream :: String -> [PrintOrSleep]
