@@ -1,6 +1,5 @@
 #!/usr/bin/env runhaskell
 import Data.List
-import System.Posix
 import Control.Concurrent
 import System.IO
 
