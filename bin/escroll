@@ -2,32 +2,36 @@
 import Data.List
 import System.Posix
 import Control.Concurrent
+import System.IO
 
 takeBlock :: [String] -> (String, [String])
 takeBlock (firstLine:moreLines) = (block, restLines) where
   block = intercalate "\n" (firstLine:indLines)
   (indLines, restLines) = span (isPrefixOf " ") moreLines
 
-data InfoOrError = Error String Int
-                 | Info String
+data PrintOrSleep = Print String
+                  | Sleep Int
 
-processBlock :: String -> InfoOrError
-processBlock block = if ("ERROR" `isInfixOf` block)
-  then Error block 5000000
-  else Info block
+processBlock :: String -> [PrintOrSleep] -> [PrintOrSleep]
+processBlock block acts = (Print block : restActs) where
+  restActs = if ("ERROR" `isInfixOf` block)
+    then (Sleep 5000000 : acts)
+    else acts
 
+makeBlocks :: [String] -> [String]
 makeBlocks [] = []
 makeBlocks lines = (block:(makeBlocks remLines)) where
   (block, remLines) = takeBlock lines
 
-processStream :: String -> [InfoOrError]
-processStream = map processBlock . makeBlocks . lines
+processStream :: String -> [PrintOrSleep]
+processStream = foldr processBlock [] . makeBlocks . lines
 
-actOn :: InfoOrError -> IO()
-actOn (Error block secs) = putStrLn block >> threadDelay secs
-actOn (Info block) = putStrLn block
+actOn :: PrintOrSleep -> IO()
+actOn (Sleep usecs) = threadDelay usecs
+actOn (Print block) = putStrLn block
 
 main :: IO ()
 main = do
+  hSetBuffering stdout NoBuffering
   input <- getContents
   mapM_ actOn $ processStream input
