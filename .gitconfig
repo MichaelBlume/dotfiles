@@ -8,10 +8,10 @@
     ap = add --patch
     b = branch
     bl = blame
-    c = commit
-    ca = commit --all
-    cm = commit --amend
-    cam = commit --all --amend
+    c = commit --verbose
+    ca = commit --all --verbose
+    cm = commit --amend --verbose
+    cam = commit --all --amend --verbose
     cb = checkout -b
     cd = commit --all -m "dirty"
     cl = clone
