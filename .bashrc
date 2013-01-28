@@ -8,6 +8,9 @@
 # Add home bin to path
 export PATH=/home/mike/bin:/usr/local/git/bin:/Users/mike/bin:/home/mike/.cabal/bin:/Users/mike/Library/Haskell/bin/:/opt/loggly/web/app/bin:/usr/local/bin:$PATH:/home/mike/workspace/google_appengine:/home/mike/workspace/js2coffee/bin:/var/lib/gems/1.8/bin:/Users/mike/Downloads/storm-0.8.1/bin
 
+# Try to set JAVA_HOME
+export JAVA_HOME=`/usr/libexec/java_home`
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
