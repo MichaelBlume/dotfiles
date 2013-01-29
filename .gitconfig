@@ -34,8 +34,8 @@
     irbl = rebase --interactive loggly/master
     irbm = rebase --interactive master
     irbo = rebase --interactive HEAD@{upstream}
-    k = !gitk
-    ka = !gitk --all
+    k = !gitk 2>/dev/null
+    ka = !gitk --all 2>/dev/null
     l = log
     lg = log --graph
     lga = log --graph --all
