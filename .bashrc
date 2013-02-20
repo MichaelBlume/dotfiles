@@ -8,6 +8,9 @@
 # Add home bin to path
 export PATH=/home/mike/bin:/usr/local/git/bin:/Users/mike/bin:/home/mike/.cabal/bin:/Users/mike/Library/Haskell/bin/:/opt/loggly/web/app/bin:/usr/local/bin:$PATH:/home/mike/workspace/google_appengine:/home/mike/workspace/js2coffee/bin:/var/lib/gems/1.8/bin:/Users/mike/Downloads/storm-0.8.1/bin
 
+# Complete Me
+source /usr/local/bin/setup_completeme_key_binding.sh
+
 # Try to set JAVA_HOME
 export JAVA_HOME=`/usr/libexec/java_home -v 1.7 2> /dev/null`
 
