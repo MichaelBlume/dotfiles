@@ -1,3 +1,4 @@
+execute pathogen#infect()
 au! BufWritePost .vimrc source %
 set nocompatible
 
