@@ -1,6 +1,7 @@
 git pull --rebase
 git push
 cd workspace/homedirs
+git fetch ~
 git pull
 git fetch mike
 git ms mike/master --no-edit
