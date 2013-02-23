@@ -1,4 +1,5 @@
 execute pathogen#infect()
+let g:paredit_electric_return=0
 au! BufWritePost .vimrc source %
 set nocompatible
 
