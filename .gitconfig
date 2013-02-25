@@ -74,6 +74,7 @@
     stlp = stash list --patch
     stp = stash pop
     uc = reset --mixed HEAD^
+    uch = reset --hard HEAD^
 [apply]
     # wish this worked with commits
     whitespace = fix
