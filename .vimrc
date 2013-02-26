@@ -1,6 +1,7 @@
 execute pathogen#infect()
 let g:paredit_electric_return=0
 let g:slimv_swank_cmd = '! mvn clojure:swank &'
+let g:lisp_rainbow = 1
 au! BufWritePost .vimrc source %
 set nocompatible
 
