@@ -29,11 +29,14 @@ set wildmode=longest,list,full
 set wildmenu
 syntax on 
 
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+autocmd FileType python set tabstop=4
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set softtabstop=4
 set expandtab 		
 set textwidth=79
-set softtabstop=4
 
 set wmnu
 
