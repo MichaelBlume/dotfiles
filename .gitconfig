@@ -42,6 +42,7 @@
     loud = log --grep=\\\\[[-_A-Z\\ ]*\\\\]
     lp = log -p
     ls = ls-files
+    lss = log --stat
     m = merge
     mm = merge --no-ff
     ms = merge -s subtree
