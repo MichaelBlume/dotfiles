@@ -165,3 +165,4 @@ PS4='+ '
 }
 proml
 export GIT_PS1_SHOWDIRTYSTATE=yes
+export PATH=$JAVA_HOME/bin:$PATH
