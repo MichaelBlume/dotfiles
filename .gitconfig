@@ -47,6 +47,7 @@
     m = merge
     mm = merge --no-ff
     ms = merge -s subtree
+    nr = name-rev
     pl = pull
     pr = pull --rebase
     ps = push
