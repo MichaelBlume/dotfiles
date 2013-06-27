@@ -63,7 +63,7 @@
     rs = reset --soft
     rv = revert
     rx = reset --mixed
-    s = status
+    s = status -sb
     sf = svn fetch
     sh = show
     sps = svn dcommit
