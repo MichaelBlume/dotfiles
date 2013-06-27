@@ -43,6 +43,7 @@
     lp = log -p
     ls = ls-files
     lss = log --stat
+    lsu = ls-files --unmerged
     m = merge
     mm = merge --no-ff
     ms = merge -s subtree
