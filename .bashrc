@@ -130,6 +130,9 @@ fi
 #complete -o default -o nospace -F _git g
 __git_complete g _git
 
+# Leiningen tab completion
+source ~/.lein-completion.bash
+
 # Set Vim home
 #export VIM=/home/mike/.vim
 
