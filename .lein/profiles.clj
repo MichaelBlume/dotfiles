@@ -3,5 +3,6 @@
                   [lein-kibit "0.0.8"]
                   [lein-swank "1.4.5"]
                   [lein-pprint "1.1.1"]
+                  [lein-try "0.2.0"]
                   [lein-clojars "0.9.1"]]
         :aliases {"ir" ["trampoline" "irepl"]}}}
