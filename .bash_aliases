@@ -15,3 +15,5 @@ alias asdf="setxkbmap dvorak"
 alias mine="sudo chown -R $USER:$USER ."
 
 alias mvns="mvn -Dmaven.test.skip=true"
+
+alias chbuild="ssh ubuntu@ec2-54-242-16-110.compute-1.amazonaws.com"
