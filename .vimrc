@@ -80,4 +80,4 @@ set guioptions+=A
 colorscheme koehler
 set guifont=Monospace\ 9
 
-map ]t cpr :Eval (run-tests)<cr>
+map ]t cpr:Eval (run-tests)<cr>
