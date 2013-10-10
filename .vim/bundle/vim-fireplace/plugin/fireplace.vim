@@ -155,6 +155,7 @@ endfunction
 
 function! s:repl.includes_file(file) dict abort
   let file = substitute(a:file, '\C^zipfile:\(.*\)::', '\1/', '')
+  let file = substitute(file, '\C^fugitive:[\/][\/]\(.*\)\.git[\/][\/][^\/]\+[\/]', '\1', '')
   for path in self.path()
     if file[0 : len(path)-1] ==? path
       return 1
@@ -538,6 +539,10 @@ function! fireplace#evalprint(expr) abort
   return fireplace#echo_session_eval(a:expr)
 endfunction
 
+function! fireplace#macroexpand(fn, form) abort
+  return fireplace#evalprint('('.a:fn.' (quote '.a:form.'))')
+endfunction
+
 let g:fireplace#reader =
       \ '(symbol ((fn *vimify [x]' .
       \  ' (cond' .
@@ -611,6 +616,14 @@ function! s:filterop(type) abort
   finally
     let @@ = reg_save
   endtry
+endfunction
+
+function! s:macroexpandop(type) abort
+  call fireplace#macroexpand("clojure.walk/macroexpand-all", s:opfunc(a:type))
+endfunction
+
+function! s:macroexpand1op(type) abort
+  call fireplace#macroexpand("clojure.core/macroexpand-1", s:opfunc(a:type))
 endfunction
 
 function! s:printop(type) abort
@@ -749,6 +762,11 @@ xnoremap <silent> <Plug>FireplacePrint  :<C-U>call <SID>printop(visualmode())<CR
 nnoremap <silent> <Plug>FireplaceFilter :<C-U>set opfunc=<SID>filterop<CR>g@
 xnoremap <silent> <Plug>FireplaceFilter :<C-U>call <SID>filterop(visualmode())<CR>
 
+nnoremap <silent> <Plug>FireplaceMacroExpand  :<C-U>set opfunc=<SID>macroexpandop<CR>g@
+xnoremap <silent> <Plug>FireplaceMacroExpand  :<C-U>call <SID>macroexpandop(visualmode())<CR>
+nnoremap <silent> <Plug>FireplaceMacroExpand1 :<C-U>set opfunc=<SID>macroexpand1op<CR>g@
+xnoremap <silent> <Plug>FireplaceMacroExpand1 :<C-U>call <SID>macroexpand1op(visualmode())<CR>
+
 nnoremap <silent> <Plug>FireplaceEdit   :<C-U>set opfunc=<SID>editop<CR>g@
 xnoremap <silent> <Plug>FireplaceEdit   :<C-U>call <SID>editop(visualmode())<CR>
 
@@ -786,6 +804,11 @@ function! s:setup_eval() abort
 
   nmap <buffer> c! <Plug>FireplaceFilter
   nmap <buffer> c!! <Plug>FireplaceFilterab
+
+  nmap <buffer> cm <Plug>FireplaceMacroExpand
+  nmap <buffer> cmm <Plug>FireplaceMacroExpandab
+  nmap <buffer> c1m <Plug>FireplaceMacroExpand1
+  nmap <buffer> c1mm <Plug>FireplaceMacroExpand1ab
 
   nmap <buffer> cq <Plug>FireplaceEdit
   nmap <buffer> cqq <Plug>FireplaceEditab
@@ -1103,7 +1126,7 @@ augroup fireplace_alternate
   autocmd FileType clojure command! -buffer -bar AT :exe s:Alternate('tabedit')
 augroup END
 
-function! s:alternates() abort
+function! fireplace#alternates() abort
   let ns = fireplace#ns()
   if ns =~# '-test$'
     let alt = [ns[0:-6]]
@@ -1118,7 +1141,7 @@ function! s:alternates() abort
 endfunction
 
 function! s:Alternate(cmd) abort
-  let alternates = s:alternates()
+  let alternates = fireplace#alternates()
   for file in alternates
     let path = fireplace#findresource(file)
     if !empty(path)
@@ -1151,11 +1174,29 @@ if !exists('s:leiningen_repl_ports')
   let s:leiningen_repl_ports = {}
 endif
 
-function! s:leiningen_connect()
+function! s:portfile()
   if !exists('b:leiningen_root')
+    return ''
+  endif
+
+  let root = b:leiningen_root
+  let portfiles = [root.'/target/repl-port', root.'/target/repl/repl-port', root.'/.nrepl-port']
+
+  for f in portfiles
+    if filereadable(f)
+      return f
+    endif
+  endfor
+  return ''
+endfunction
+
+
+function! s:leiningen_connect()
+  let portfile = s:portfile()
+  if empty(portfile)
     return
   endif
-  let portfile = b:leiningen_root . '/target/repl-port'
+
   if getfsize(portfile) > 0 && getftime(portfile) !=# get(s:leiningen_repl_ports, b:leiningen_root, -1)
     let port = matchstr(readfile(portfile, 'b', 1)[0], '\d\+')
     let s:leiningen_repl_ports[b:leiningen_root] = getftime(portfile)
