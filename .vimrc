@@ -17,6 +17,7 @@ set backspace=indent,eol,start
 set autoindent
 set smartindent
 set ignorecase
+set smartcase
 set ruler
 set showmatch
 set showmode
