@@ -82,3 +82,8 @@ colorscheme koehler
 set guifont=Monospace\ 9
 
 map ]t cpr:Eval (run-tests)<cr>
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
