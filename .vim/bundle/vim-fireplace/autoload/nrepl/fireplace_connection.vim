@@ -6,6 +6,8 @@ if exists("g:autoloaded_nrepl_fireplace_connection") || &cp
 endif
 let g:autoloaded_nrepl_fireplace_connection = 1
 
+let s:python_dir = fnamemodify(expand("<sfile>"), ':p:h:h:h') . '/python'
+
 function! s:function(name) abort
   return function(substitute(a:name,'^s:',matchstr(expand('<sfile>'), '<SNR>\d\+_'),''))
 endfunction
@@ -18,48 +20,11 @@ function! nrepl#fireplace_connection#bencode(value) abort
   elseif type(a:value) == type('')
     return strlen(a:value).':'.a:value
   elseif type(a:value) == type([])
-    return 'l'.join(map(a:value,'nrepl#fireplace_connection#bencode(v:val)'),'').'e'
+    return 'l'.join(map(copy(a:value),'nrepl#fireplace_connection#bencode(v:val)'),'').'e'
   elseif type(a:value) == type({})
-    return 'd'.join(values(map(a:value,'nrepl#fireplace_connection#bencode(v:key).nrepl#fireplace_connection#bencode(v:val)')),'').'e'
+    return 'd'.join(values(map(copy(a:value),'nrepl#fireplace_connection#bencode(v:key).nrepl#fireplace_connection#bencode(v:val)')),'').'e'
   else
     throw "Can't bencode ".string(a:value)
-  endif
-endfunction
-
-function! nrepl#fireplace_connection#bdecode(value) abort
-  return s:bdecode({'pos': 0, 'value': a:value})
-endfunction
-
-function! s:bdecode(state) abort
-  let value = a:state.value
-  if value[a:state.pos] =~# '\d'
-    let pos = a:state.pos
-    let length = matchstr(value[pos : -1], '^\d\+')
-    let a:state.pos += strlen(length) + length + 1
-    return value[pos+strlen(length)+1 : pos+strlen(length)+length]
-  elseif value[a:state.pos] ==# 'i'
-    let int = matchstr(value[a:state.pos+1:-1], '[^e]*')
-    let a:state.pos += 2 + strlen(int)
-    return str2nr(int)
-  elseif value[a:state.pos] ==# 'l'
-    let values = []
-    let a:state.pos += 1
-    while value[a:state.pos] !=# 'e' && value[a:state.pos] !=# ''
-      call add(values, s:bdecode(a:state))
-    endwhile
-    let a:state.pos += 1
-    return values
-  elseif value[a:state.pos] ==# 'd'
-    let values = {}
-    let a:state.pos += 1
-    while value[a:state.pos] !=# 'e' && value[a:state.pos] !=# ''
-      let key = s:bdecode(a:state)
-      let values[key] = s:bdecode(a:state)
-    endwhile
-    let a:state.pos += 1
-    return values
-  else
-    throw 'bencode parse error: '.string(a:state)
   endif
 endfunction
 
@@ -80,9 +45,29 @@ function! s:shellesc(arg) abort
   endif
 endfunction
 
+if !exists('s:id')
+  let s:vim_id = localtime()
+  let s:id = 0
+endif
+function! s:id() abort
+  let s:id += 1
+  return 'fireplace-'.hostname().'-'.s:vim_id.'-'.s:id
+endfunction
+
 function! nrepl#fireplace_connection#prompt() abort
   return fireplace#input_host_port()
 endfunction
+
+if !exists('g:nrepl_fireplace_sessions')
+  let g:nrepl_fireplace_sessions = {}
+endif
+
+augroup nrepl_fireplace_connection
+  autocmd!
+  autocmd VimLeave * for s:session in values(g:nrepl_fireplace_sessions)
+        \ |   call s:session.close()
+        \ | endfor
+augroup END
 
 function! nrepl#fireplace_connection#open(arg) abort
   if a:arg =~# '^\d\+$'
@@ -97,14 +82,29 @@ function! nrepl#fireplace_connection#open(arg) abort
   let client = deepcopy(s:nrepl)
   let client.host = host
   let client.port = port
-  let session = client.process({'op': 'clone'})['new-session']
-  let response = client.process({'op': 'eval', 'session': session, 'code':
+  let client.session = client.process({'op': 'clone', 'session': 0})['new-session']
+  let response = client.process({'op': 'eval', 'code':
         \ '(do (println "success") (symbol (str (System/getProperty "path.separator") (System/getProperty "java.class.path"))))'})
   let client._path = response.value[-1]
   if has_key(response, 'out')
-    let client.session = session
+    let g:nrepl_fireplace_sessions[client.session] = client
+  else
+    unlet client.session
   endif
   return client
+endfunction
+
+function! s:nrepl_close() dict abort
+  if has_key(self, 'session')
+    try
+      unlet! g:nrepl_fireplace_sessions[self.session]
+      call self.call({'op': 'close'})
+    catch //
+    finally
+      unlet self.session
+    endtry
+  endif
+  return self
 endfunction
 
 function! s:nrepl_path() dict abort
@@ -129,8 +129,6 @@ function! s:nrepl_process(payload) dict abort
         if index(combined[key], response[key]) < 0
           call extend(combined[key], [response[key]])
         endif
-      elseif key ==# 'out' && response.out =~# '^\b.*(.*)$'
-        let combined.stacktrace = split(response.out, "\b")
       elseif type(response[key]) == type('')
         let combined[key] = get(combined, key, '') . response[key]
       else
@@ -146,28 +144,35 @@ endfunction
 
 function! s:nrepl_eval(expr, ...) dict abort
   let payload = {"op": "eval"}
-  let payload.code = '(try (clojure.core/eval ''(do '.a:expr."\n".'))' .
-        \ ' (catch Exception e' .
-        \ '   (clojure.core/print (clojure.core/apply clojure.core/str (clojure.core/interleave (clojure.core/repeat "\b") (clojure.core/map clojure.core/str (.getStackTrace e)))))' .
-        \ '   (throw e)))'
+  let payload.code = a:expr
   let options = a:0 ? a:1 : {}
   if has_key(options, 'ns')
     let payload.ns = options.ns
   elseif has_key(self, 'ns')
     let payload.ns = self.ns
   endif
-  if get(options, 'session', 1)
-    if has_key(self, 'session')
-      let payload.session = self.session
-    elseif &verbose
-      echohl WarningMSG
-      echo "nREPL: server has bug preventing session support"
-      echohl None
+  if has_key(options, 'session')
+    let payload.session = options.session
+  endif
+  if has_key(options, 'file_path')
+    let payload.op = 'load-file'
+    let payload['file-path'] = options.file_path
+    let payload['file-name'] = fnamemodify(options.file_path, ':t')
+    if has_key(payload, 'ns')
+      let payload.file = "(in-ns '".payload.ns.") ".payload.code
+      call remove(payload, 'ns')
+    else
+      let payload.file = payload.code
     endif
+    call remove(payload, 'code')
   endif
   let response = self.process(payload)
   if has_key(response, 'ns') && !a:0
     let self.ns = response.ns
+  endif
+
+  if has_key(response, 'ex') && !empty(get(payload, 'session', 1))
+    let response.stacktrace = s:extract_last_stacktrace(self)
   endif
 
   if has_key(response, 'value')
@@ -176,88 +181,108 @@ function! s:nrepl_eval(expr, ...) dict abort
   return response
 endfunction
 
-function! s:nrepl_call(payload) dict abort
-  let in = 'ruby -rsocket -e '.s:shellesc(
-        \ 'begin;' .
-        \ 'TCPSocket.open(%(' . self.host . '), ' . self.port . ') {|s|' .
-        \ 's.write(ARGV.first); loop {' .
-        \ 'body = s.readpartial(8192);' .
-        \ 'raise %(not an nREPL server: upgrade to Leiningen 2) if body =~ /=> $/;' .
-        \ 'print body;' .
-        \ 'break if body.include?(%(6:statusl4:done)) }};' .
-        \ 'rescue; abort $!.to_s;' .
-        \ 'end') . ' ' .
-        \ s:shellesc(nrepl#fireplace_connection#bencode(a:payload))
+function! s:extract_last_stacktrace(nrepl) abort
+    let format_st = '(clojure.core/symbol (clojure.core/str "\n\b" (clojure.core/apply clojure.core/str (clojure.core/interleave (clojure.core/repeat "\n") (clojure.core/map clojure.core/str (.getStackTrace *e)))) "\n\b\n"))'
+    let stacktrace = split(get(split(a:nrepl.process({'op': 'eval', 'code': '['.format_st.' *3 *2 *1]', 'session': a:nrepl.session}).value[0], "\n\b\n"), 1, ""), "\n")
+    call a:nrepl.call({'op': 'eval', 'code': '(nth *1 1)', 'session': a:nrepl.session})
+    call a:nrepl.call({'op': 'eval', 'code': '(nth *2 2)', 'session': a:nrepl.session})
+    call a:nrepl.call({'op': 'eval', 'code': '(nth *3 3)', 'session': a:nrepl.session})
+    return stacktrace
+endfunction
+
+let s:keepalive = tempname()
+call writefile([getpid()], s:keepalive)
+
+function! s:nrepl_command(args) dict abort
+  return 'python'
+        \ . ' ' . s:shellesc(s:python_dir.'/nrepl_fireplace.py')
+        \ . ' ' . s:shellesc(self.host)
+        \ . ' ' . s:shellesc(self.port)
+        \ . ' ' . s:shellesc(s:keepalive)
+        \ . ' ' . join(map(copy(a:args), 's:shellesc(v:val)'), ' ')
+endfunction
+
+function! s:nrepl_dispatch(...) dict abort
+  let in = self.command(a:000)
   let out = system(in)
   if !v:shell_error
-    return nrepl#fireplace_connection#bdecode('l'.out.'e')
+    return eval(out)
   endif
-  throw 'nREPL: '.split(out, "\n")[0]
+  throw 'nREPL: '.out
+endfunction
+
+function! s:nrepl_prepare(payload) dict abort
+  let payload = copy(a:payload)
+  if !has_key(payload, 'id')
+    let payload.id = s:id()
+  endif
+  if empty(get(payload, 'session', 1))
+    unlet payload.session
+  elseif !has_key(self, 'session')
+    if &verbose
+      echohl WarningMSG
+      echo "nREPL: server has bug preventing session support"
+      echohl None
+    endif
+    unlet! payload.session
+  elseif !has_key(payload, 'session')
+    let payload.session = self.session
+  endif
+  return payload
+endfunction
+
+function! s:nrepl_call(payload, ...) dict abort
+  let payload = self.prepare(a:payload)
+  let response = filter(self.dispatch('call', nrepl#fireplace_connection#bencode(payload)), 'v:val.id == payload.id')
+  if a:0
+    call map(response, 'call(a:1, v:val)')
+  else
+    return response
+  endif
 endfunction
 
 let s:nrepl = {
+      \ 'close': s:function('s:nrepl_close'),
+      \ 'command': s:function('s:nrepl_command'),
+      \ 'dispatch': s:function('s:nrepl_dispatch'),
+      \ 'prepare': s:function('s:nrepl_prepare'),
       \ 'call': s:function('s:nrepl_call'),
       \ 'eval': s:function('s:nrepl_eval'),
       \ 'path': s:function('s:nrepl_path'),
       \ 'process': s:function('s:nrepl_process')}
 
-if !has('python')
+if !has('python') || $FIREPLACE_NO_IF_PYTHON
   finish
+endif
+
+if !exists('s:python')
+  exe 'python sys.path.insert(0, "'.escape(s:python_dir, '\"').'")'
+  let s:python = 1
+  python import nrepl_fireplace
+else
+  python reload(nrepl_fireplace)
 endif
 
 python << EOF
 import vim
-import select
-import socket
-import string
-import re
-
-def fireplace_string_encode(input):
-  str_list = []
-  for c in input:
-    if (000 <= ord(c) and ord(c) <= 037) or c == '"' or c == "\\":
-      str_list.append("\\{0:03o}".format(ord(c)))
-    else:
-      str_list.append(c)
-  return '"' + ''.join(str_list) + '"'
 
 def fireplace_let(var, value):
-  return vim.command('let ' + var + " = " + fireplace_string_encode(value))
+  return vim.command('let ' + var + ' = ' + nrepl_fireplace.vim_encode(value))
 
-def fireplace_repl_interact():
-  buffer = ''
-  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  host = vim.eval('self.host')
-  port = int(vim.eval('self.port'))
-  s.settimeout(8)
+def fireplace_check():
+  vim.eval('getchar(1)')
+
+def fireplace_repl_dispatch(command, *args):
   try:
-    try:
-      s.connect((host, port))
-      s.setblocking(1)
-      s.sendall(vim.eval('payload'))
-      while True:
-        while len(select.select([s], [], [], 0.1)[0]) == 0:
-          vim.eval('getchar(1)')
-        body = s.recv(8192)
-        if re.search("=> $", body) != None:
-          raise Exception("not an nREPL server: upgrade to Leiningen 2")
-        buffer += body
-        if string.find(body, '6:statusl4:done') != -1:
-          break
-      fireplace_let('out', buffer)
-    except Exception, e:
-      fireplace_let('err', str(e))
-  finally:
-    s.close()
+    fireplace_let('out', nrepl_fireplace.dispatch(vim.eval('self.host'), vim.eval('self.port'), fireplace_check, None, command, *args))
+  except Exception, e:
+    fireplace_let('err', str(e))
 EOF
 
-function! s:nrepl_call(payload) dict abort
-  let payload = nrepl#fireplace_connection#bencode(a:payload)
-  python << EOF
-fireplace_repl_interact()
-EOF
+function! s:nrepl_dispatch(command, ...) dict abort
+  python fireplace_repl_dispatch(vim.eval('a:command'), *vim.eval('a:000'))
   if !exists('err')
-    return nrepl#fireplace_connection#bdecode('l'.out.'e')
+    return out
   endif
   throw 'nREPL Connection Error: '.err
 endfunction
