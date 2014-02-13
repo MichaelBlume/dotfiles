@@ -21,3 +21,5 @@ alias mine="sudo chown -R $USER:$USER ."
 alias mvns="mvn -Dmaven.test.skip=true"
 
 alias chbuild="ssh ubuntu@ec2-54-242-16-110.compute-1.amazonaws.com"
+
+alias infrabuild="ssh -f vpn.loggly.org -L 9000:infrabuild.office.loggly.net:8080 -N"
