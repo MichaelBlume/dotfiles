@@ -129,6 +129,8 @@ fi
 
 #complete -o default -o nospace -F _git g
 __git_complete g _git
+__git_complete very _git
+__git_complete such _git
 
 # Leiningen tab completion
 source ~/.lein-completion.bash
