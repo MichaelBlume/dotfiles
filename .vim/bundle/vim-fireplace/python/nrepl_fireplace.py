@@ -1,7 +1,10 @@
-import sys
+import os
+import re
 import select
 import socket
-import re
+import sys
+
+from StringIO import StringIO
 
 def noop():
   pass
@@ -14,8 +17,8 @@ def vim_encode(data):
   elif isinstance(data, str):
     str_list = []
     for c in data:
-      if (000 <= ord(c) and ord(c) <= 037) or c == '"' or c == "\\":
-        str_list.append("\\{0:03o}".format(ord(c)))
+      if (0 <= ord(c) and ord(c) <= 31) or c == '"' or c == "\\":
+        str_list.append("\\%03o" % ord(c))
       else:
         str_list.append(c)
     return '"' + ''.join(str_list) + '"'
@@ -93,12 +96,16 @@ class Connection:
     finally:
       f.close()
 
-  def call(self, payload):
+  def call(self, payload, terminators, selectors):
     self.send(payload)
     responses = []
     while True:
-      responses.append(self.receive())
-      if 'status' in responses[-1] and 'done' in responses[-1]['status']:
+      response = self.receive()
+      for key in selectors:
+        if response[key] != selectors[key]:
+          continue
+      responses.append(response)
+      if 'status' in response and set(terminators) & set(response['status']):
         return responses
 
 def dispatch(host, port, poll, keepalive, command, *args):
@@ -110,7 +117,7 @@ def dispatch(host, port, poll, keepalive, command, *args):
 
 def main(host, port, keepalive, command, *args):
   try:
-    sys.stdout.write(vim_encode(dispatch(host, port, noop, keepalive, command, *args)))
+    sys.stdout.write(vim_encode(dispatch(host, port, noop, keepalive, command, *[bdecode(StringIO(arg)) for arg in args])))
   except Exception, e:
     print(e)
     exit(1)
