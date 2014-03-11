@@ -12,7 +12,9 @@ export PATH=/home/mike/bin:/usr/local/git/bin:/Users/mike/bin:/home/mike/.cabal/
 source /usr/local/bin/setup_completeme_key_binding.sh
 
 # Try to set JAVA_HOME
-export JAVA_HOME=`/usr/libexec/java_home -v 1.7 2> /dev/null`
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8 2> /dev/null`
+
+export PATH=$JAVA_HOME/bin:$PATH
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
