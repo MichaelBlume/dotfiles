@@ -5,6 +5,16 @@ let g:loaded_gitgutter = 1
 
 " Initialisation {{{
 
+" Realtime sign updates require Vim 7.3.105+.
+if v:version < 703 || (v:version == 703 && !has("patch105"))
+  let g:gitgutter_realtime = 0
+endif
+
+" Eager updates require gettabvar()/settabvar().
+if !exists("*gettabvar")
+  let g:gitgutter_eager = 0
+endif
+
 function! s:set(var, default)
   if !exists(a:var)
     if type(a:default)
@@ -55,26 +65,24 @@ command GitGutterAll call GitGutterAll()
 function! GitGutter(file, realtime)
   call utility#set_file(a:file)
   if utility#is_active()
-    if !a:realtime || utility#has_fresh_changes(a:file)
-      let diff           = diff#run_diff(a:realtime || utility#has_unsaved_changes(a:file), 1)
-      let s:hunks        = diff#parse_diff(diff)
-      let modified_lines = diff#process_hunks(s:hunks)
-
-      if g:gitgutter_signs
-        if g:gitgutter_sign_column_always
-          call sign#add_dummy_sign()
-        else
-          if utility#differences(s:hunks)
-            call sign#add_dummy_sign()  " prevent flicker
-          else
-            call sign#remove_dummy_sign()
-          endif
-        endif
-        call sign#update_signs(a:file, modified_lines)
-      endif
-
-      call utility#save_last_seen_change(a:file)
+    if g:gitgutter_sign_column_always
+      call sign#add_dummy_sign()
     endif
+    try
+      if !a:realtime || utility#has_fresh_changes(a:file)
+        let diff           = diff#run_diff(a:realtime || utility#has_unsaved_changes(a:file), 1)
+        let s:hunks        = diff#parse_diff(diff)
+        let modified_lines = diff#process_hunks(s:hunks)
+
+        if g:gitgutter_signs
+          call sign#update_signs(a:file, modified_lines)
+        endif
+
+        call utility#save_last_seen_change(a:file)
+      endif
+    catch /diff failed/
+      call hunk#reset()
+    endtry
   else
     call hunk#reset()
   endif
@@ -89,7 +97,7 @@ command GitGutter call GitGutter(utility#current_file(), 0)
 function! GitGutterDisable()
   let g:gitgutter_enabled = 0
   call sign#clear_signs(utility#file())
-  call sign#remove_dummy_sign()
+  call sign#remove_dummy_sign(1)
   call hunk#reset()
 endfunction
 command GitGutterDisable call GitGutterDisable()
@@ -149,7 +157,7 @@ command GitGutterSignsEnable call GitGutterSignsEnable()
 function! GitGutterSignsDisable()
   let g:gitgutter_signs = 0
   call sign#clear_signs(utility#file())
-  call sign#remove_dummy_sign()
+  call sign#remove_dummy_sign(0)
 endfunction
 command GitGutterSignsDisable call GitGutterSignsDisable()
 
@@ -303,6 +311,7 @@ endfunction
 
 " }}}
 
+command GitGutterDebug call debug#debug()
 
 " Maps {{{
 
