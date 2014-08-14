@@ -161,7 +161,7 @@ __git_complete very _git
 __git_complete such _git
 
 # Leiningen tab completion
-source ~/.lein-completion.bash
+source ~/.lein/completion.bash
 
 # Set Vim home
 #export VIM=/home/mike/.vim
