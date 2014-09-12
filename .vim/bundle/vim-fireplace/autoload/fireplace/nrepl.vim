@@ -1,4 +1,4 @@
-" Fireplace nREPL session
+" Location:     autoload/nrepl/fireplace.vim
 
 if exists("g:autoloaded_fireplace_nrepl")
   finish
@@ -34,7 +34,7 @@ function! fireplace#nrepl#for(transport) abort
   let client.transport = a:transport
   let client.session = client.process({'op': 'clone', 'session': 0})['new-session']
   let client.describe = client.process({'op': 'describe', 'verbose?': 1})
-  if client.describe.versions.nrepl.major == 0 &&
+  if get(client.describe.versions.nrepl, 'major', -1) == 0 &&
         \ client.describe.versions.nrepl.minor < 2
     throw 'nREPL: 0.2.0 or higher required'
   endif
@@ -198,12 +198,15 @@ function! s:nrepl_prepare(msg) dict abort
   return msg
 endfunction
 
-function! fireplace#nrepl#callback(body, type, fn)
-  let response = {'body': a:body, 'type': a:type}
-  if has_key(g:fireplace_nrepl_sessions, get(a:body, 'session'))
-    let response.session = g:fireplace_nrepl_sessions[a:body.session]
-  endif
-  call call(a:fn, [response])
+function! fireplace#nrepl#callback(body, type, callback) abort
+  try
+    let response = {'body': a:body, 'type': a:type}
+    if has_key(g:fireplace_nrepl_sessions, get(a:body, 'session'))
+      let response.session = g:fireplace_nrepl_sessions[a:body.session]
+    endif
+    call call(a:callback[0], [response] + a:callback[1:-1])
+  catch
+  endtry
 endfunction
 
 function! s:nrepl_call(msg, ...) dict abort
