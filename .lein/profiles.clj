@@ -7,4 +7,7 @@
                   [lein-ancient "0.5.5"]
                   [jonase/eastwood "0.0.2"]
                   [lein-clojars "0.9.1"]]
+        :dependencies [[mike-clj "1.0.0-SNAPSHOT"]
+                       [com.cemerick/pomegranate "0.3.0"]
+                       [criterium "0.4.3"]]
         :aliases {"ir" ["trampoline" "irepl"]}}}
