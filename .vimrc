@@ -81,7 +81,7 @@ set guioptions+=A
 colorscheme koehler
 set guifont=Monospace\ 9
 
-map ]t cpr:Eval (run-tests)<cr>
+map <C-t> :w<cr>cpr:Eval (do (require 'mike) (mike/run-all-tests))<cr>
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
