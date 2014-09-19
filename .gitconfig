@@ -26,6 +26,7 @@
     e = checkout -p
     f = fetch
     fa = fetch --all
+    fap = fetch --all --prune
     fl = fetch loggly
     g = grep
     h = help
