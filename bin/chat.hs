@@ -23,15 +23,16 @@ module Main (main) where
 --
 -- cat chat_log | ./Chat Alice Me "Bob Smith" Bob 
 
-import Data.Map as Map
-import System.Environment as Env
+import Data.Map (Map, insert, lookup, empty)
+import System.Environment (getArgs)
+import Prelude hiding (lookup)
 
-type Names = Map.Map String String
+type Names = Map String String
 
 translateLines :: Names -> String -> [String] -> [String]
 translateLines names = f where
   f _ [] = []
-  f currentName (l : ls) = case Map.lookup l names of
+  f currentName (l : ls) = case lookup l names of
     Just newName -> f newName ls
     Nothing -> (currentName ++ ": " ++ l) : (f currentName ls)
 
@@ -43,4 +44,4 @@ packNames :: [String] -> Names
 packNames [] = empty
 packNames (k:v:ns) = insert k v $ packNames ns
 
-main = interact . translateChat . packNames =<< Env.getArgs
+main = interact . translateChat . packNames =<< getArgs
