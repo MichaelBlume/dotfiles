@@ -81,7 +81,7 @@ set guioptions+=A
 colorscheme koehler
 set guifont=Source\ Code\ Pro\ Medium:h14
 
-map <C-t> :w<cr>cpr:Eval (do (require 'mike) (mike/run-all-tests))<cr>
+map <C-t> :update<cr>:Eval (do (require 'mike) (mike/run-all-tests))<cr>
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
