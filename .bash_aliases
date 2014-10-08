@@ -14,4 +14,3 @@ alias aoeu="setxkbmap us"
 alias asdf="setxkbmap dvorak"
 
 alias mine="sudo chown -R $USER:$USER ."
-
