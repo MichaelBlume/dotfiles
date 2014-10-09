@@ -1,7 +1,32 @@
-execute pathogen#infect()
-let g:paredit_electric_return=0
-let g:lisp_rainbow = 1
 set nocompatible
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'luochen1990/rainbow' "rainbow parens
+let g:rainbow_active = 1
+Plugin 'kovisoft/paredit' "essential
+Plugin 'tpope/vim-fireplace'
+Plugin 'guns/vim-clojure-static'
+Plugin 'airblade/vim-gitgutter' "This is nice to see what you've modified and not
+" for gitgutter
+highlight clear SignColumn
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+
+
+" let g:paredit_electric_return=0
+" let g:lisp_rainbow = 1
 
 " create a backup of files when editing in /tmp
 set backupdir=~/tmp
@@ -68,8 +93,3 @@ colorscheme koehler
 set guifont=Source\ Code\ Pro\ Medium:h14
 
 map <C-t> :update<cr>:Eval (do (require 'mike) (mike/run-all-tests))<cr>
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
