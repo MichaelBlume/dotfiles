@@ -15,15 +15,35 @@ let g:rainbow_active = 1
 Plugin 'kovisoft/paredit' "essential
 Plugin 'tpope/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
+let g:clojure_align_multiline_strings = 1
+nmap cpP :Eval <CR>
 Plugin 'airblade/vim-gitgutter' "This is nice to see what you've modified and not
 " for gitgutter
 highlight clear SignColumn
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'bling/vim-airline' "nice status line stuff
+set laststatus=2
+let g:airline_theme='dark'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_branch_prefix = '⎇ '
+let g:airline_section_y = ""
+let g:airline_section_x = ""
+
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 
 
+" " to select autocomplete results with j/k
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+set complete-=i
 
 " let g:paredit_electric_return=0
 " let g:lisp_rainbow = 1
