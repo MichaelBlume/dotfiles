@@ -5,3 +5,5 @@ build/
 *.tix
 .hpc
 .DS_Store
+.idea
+.nrepl-port
