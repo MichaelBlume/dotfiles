@@ -8,6 +8,7 @@
                   [lein-clojars "0.9.1"]]
         :injections  [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
+        :aliases {"aaa" ["ancient" ":all" ":allow-qualified"]}
         :dependencies [[slamhound "1.5.5" :exclusions [org.clojure/clojure]]
                        [pjstadig/humane-test-output "0.6.0" :exclusions [org.clojure/clojure]]
                        [mike-clj "1.0.0-SNAPSHOT" :exclusions [org.clojure/clojure]]
