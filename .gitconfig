@@ -5,6 +5,7 @@
 [alias]
     a = add
     ai = add --interactive
+    ama = am --abort
     ap = add --patch
     b = branch
     bl = blame
