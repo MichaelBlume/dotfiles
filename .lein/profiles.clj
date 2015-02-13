@@ -3,7 +3,7 @@
                   [lein-kibit "0.0.8"]
                   [lein-bikeshed "0.1.8"]
                   [lein-try "0.4.3"]
-                  [lein-ancient "0.5.5"]
+                  [lein-ancient "0.6.1"]
                   [jonase/eastwood "0.1.4"]
                   [lein-clojars "0.9.1"]]
         :injections  [(require 'pjstadig.humane-test-output)
