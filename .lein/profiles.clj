@@ -4,7 +4,7 @@
                   [lein-bikeshed "0.1.8"]
                   [lein-try "0.4.3"]
                   [lein-ancient "0.6.1"]
-                  [jonase/eastwood "0.1.4"]
+                  [jonase/eastwood "0.1.5"]
                   [lein-clojars "0.9.1"]]
         :injections  [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
