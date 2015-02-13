@@ -10,6 +10,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'luochen1990/rainbow' "rainbow parens
 let g:rainbow_active = 1
+let g:paredit_matchlines = 200
 Plugin 'kovisoft/paredit' "essential
 Plugin 'tpope/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
