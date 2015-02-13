@@ -33,6 +33,8 @@ let g:airline_section_y = ""
 let g:airline_section_x = ""
 
 
+Plugin 'wting/rust.vim'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -75,6 +77,9 @@ set softtabstop=2
 autocmd FileType python set tabstop=4
 autocmd FileType python set shiftwidth=4
 autocmd FileType python set softtabstop=4
+autocmd FileType rust set tabstop=4
+autocmd FileType rust set shiftwidth=4
+autocmd FileType rust set softtabstop=4
 set expandtab 		
 set textwidth=79
 
