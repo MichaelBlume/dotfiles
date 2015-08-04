@@ -24,11 +24,14 @@ highlight clear SignColumn
 Plugin 'tpope/vim-fugitive'
 
 Plugin 'bling/vim-airline' "nice status line stuff
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 set laststatus=2
 let g:airline_theme='dark'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
-let g:airline_branch_prefix = '⎇ '
+let g:airline_symbols.branch = '⎇ '
 let g:airline_section_y = ""
 let g:airline_section_x = ""
 
