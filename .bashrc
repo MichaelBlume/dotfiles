@@ -9,7 +9,7 @@
 export PATH=/home/mike/bin:/Users/michael.blume/bin:/home/mike/.cabal/bin:/Users/michael.blume/Library/Haskell/bin/:/usr/local/bin:$PATH:/Users/michael.blume/devops-utilities/bin
 
 # Complete Me
-[ -f /usr/local/bin/setup_completeme_key_binding.sh ] && source /usr/local/bin/setup_completeme_key_binding.sh
+#[ -f /usr/local/bin/setup_completeme_key_binding.sh ] && source /usr/local/bin/setup_completeme_key_binding.sh
 
 # Try to set JAVA_HOME
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8 2> /dev/null`
