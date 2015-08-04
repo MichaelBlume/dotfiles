@@ -32,10 +32,10 @@
     g = grep
     h = help
     i = init
-    irb = rebase --interactive
-    irbm = rebase --interactive master
-    irbo = rebase --interactive HEAD@{upstream}
-    irbu = rebase --interactive upstream/master
+    irb = rebaser
+    irbm = rebaser master
+    irbo = rebaser HEAD@{upstream}
+    irbu = rebaser upstream/master
     k = !gitk 2>/dev/null
     ka = !gitk --all 2>/dev/null
     l = log
