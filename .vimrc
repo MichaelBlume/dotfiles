@@ -71,7 +71,14 @@ set incsearch
 set nopaste
 set number
 set esckeys
-set wildmode=longest,list,full
+set wildmode=list:longest
+
+set wildmenu
+
+if exists("&wildignorecase")
+  set wildignorecase
+endif
+
 syntax on 
 
 set tabstop=2
