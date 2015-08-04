@@ -33,6 +33,8 @@
     h = help
     i = init
     irb = rebaser
+    irbh = rebaser HEAD
+    irbl = rebaser HEAD@{1}
     irbm = rebaser master
     irbo = rebaser HEAD@{upstream}
     irbu = rebaser upstream/master
@@ -57,6 +59,8 @@
     rb = rebase
     rba = rebase --abort
     rbc = rebase --continue
+    rbh = rebase HEAD
+    rbl = rebase HEAD@{1}
     rbm = rebase master
     rbo = rebase HEAD@{upstream}
     rbs = rebase --skip
