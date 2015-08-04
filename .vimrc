@@ -127,3 +127,4 @@ colorscheme koehler
 set guifont=Source\ Code\ Pro\ Medium:h14
 
 map <C-t> :update<cr>:Eval (do (require 'mike) (mike/run-all-tests))<cr>
+autocmd BufNewFile,BufRead *.cljc,*.cljx setlocal filetype=clojure
