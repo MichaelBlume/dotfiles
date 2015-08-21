@@ -12,5 +12,5 @@
                   "rh" ["repl" ":headless"]}
         :dependencies [[slamhound "1.5.5" :exclusions [org.clojure/clojure]]
                        [pjstadig/humane-test-output "0.7.0" :exclusions [org.clojure/clojure]]
-                       [mike-clj "1.0.0-SNAPSHOT" :exclusions [org.clojure/clojure]]
+                       [editor-fns "1.0.0" :exclusions [org.clojure/clojure]]
                        [criterium "0.4.3" :exclusions [org.clojure/clojure]]]}}
