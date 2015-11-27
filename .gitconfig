@@ -36,7 +36,7 @@
     irbh = rebase -i HEAD
     irbl = rebase -i HEAD@{1}
     irbm = rebase -i master
-    irbo = rebase -i HEAD@{upstream}
+    irbo = rebase -i origin/master
     irbu = rebase -i upstream/master
     k = !gitk 2>/dev/null
     ka = !gitk --all 2>/dev/null
@@ -62,7 +62,7 @@
     rbh = rebase HEAD
     rbl = rebase HEAD@{1}
     rbm = rebase master
-    rbo = rebase HEAD@{upstream}
+    rbo = rebase origin/master
     rbs = rebase --skip
     rbu = rebase upstream/master
     rh = reset --hard
