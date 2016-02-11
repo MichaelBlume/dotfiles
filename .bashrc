@@ -6,7 +6,10 @@
 [ -f /etc/bash.bashrc ] && source /etc/bash.bashrc
 
 # Add home bin to path
-export PATH=/home/mike/bin:/Users/michael.blume/bin:/home/mike/.cabal/bin:/Users/michael.blume/Library/Haskell/bin/:/usr/local/bin:$PATH:/Users/michael.blume/devops-utilities/bin
+export PATH=/home/mike/bin:/Users/michael.blume/Library/Android/sdk/platform-tools:/Users/michael.blume/bin:/home/mike/.cabal/bin:/Users/michael.blume/Library/Haskell/bin/:/usr/local/bin:$PATH:/Users/michael.blume/devops-utilities/bin
+
+export ANDROID_HOME=/Users/michael.blume/Library/Android/sdk/
+export PATH=$PATH:$ANDROID_HOME/tools/
 
 # Complete Me
 #[ -f /usr/local/bin/setup_completeme_key_binding.sh ] && source /usr/local/bin/setup_completeme_key_binding.sh
