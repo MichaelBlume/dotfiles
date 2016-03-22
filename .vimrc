@@ -14,6 +14,7 @@ let g:paredit_matchlines = 200
 Plugin 'kovisoft/paredit' "essential
 Plugin 'tpope/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
+Plugin 'udalov/kotlin-vim'
 Plugin 'guns/vim-clojure-highlight'
 let g:clojure_align_multiline_strings = 1
 nmap cpP :Eval <CR>
