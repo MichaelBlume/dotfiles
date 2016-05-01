@@ -3,86 +3,194 @@
     pushNonFastForward = false
     statusHints = false
 [alias]
+    # simple shortcuts
     a = add
-    ai = add --interactive
-    ama = am --abort
-    ap = add --patch
     b = branch
+    #blamematt
     bl = blame
-    c = commit --verbose
-    ca = commit --all --verbose
-    cm = commit --amend --verbose
-    cam = commit --all --amend --verbose
-    cb = checkout -b
-    cd = commit --all -m "dirty"
     cl = clone
     co = checkout
     cp = cherry-pick
-    cpx = cherry-pick -x
     d = diff
-    db = branch -D
-    dbo = "!f() { git push origin :$1; }; f"
-    dbu = "!f() { git push upstream :$1; }; f"
-    ds = diff --stat
-    e = checkout -p
     f = fetch
-    fa = fetch --all
-    fap = fetch --all --prune
-    fu = fetch upstream
     g = grep
     h = help
     i = init
-    irb = rebase -i
-    irbh = rebase -i HEAD
-    irbl = rebase -i HEAD@{1}
-    irbm = rebase -i master
-    irbo = rebase -i origin/master
-    irbu = rebase -i upstream/master
-    k = !gitk 2>/dev/null
-    ka = !gitk --all 2>/dev/null
     l = log
-    lg = log --graph
-    lga = log --graph --all
-    loud = log --grep=\\\\[[-_A-Z\\ ]*\\\\]
-    lp = log -p
-    ls = ls-files
-    lss = log --stat
-    lsu = ls-files --unmerged
     m = merge
-    mm = merge --no-ff
-    ms = merge -s subtree
-    nr = name-rev
-    pl = pull
-    pr = pull --rebase
     ps = push
     r = remote
     rb = rebase
+
+    # for dealing with patch files, not part of climate workflow
+    ama = am --abort
+
+    # use this to stage diffs, use it every time
+    ap = add --patch
+
+    # shortcut for commit, but shows you the diff in the editor while you're
+    # writing the commit message, which is nice.
+    c = commit --verbose
+
+    # try not to use this
+    ca = commit --all --verbose
+
+    # for rewriting a commit -- either to change the diff, or to edit the
+    # commit message
+    cm = commit --amend --verbose
+
+    # again, don't
+    cam = commit --all --amend --verbose
+
+    # create a branch and immediately check it out
+    cb = checkout -b
+
+    # quick and dirty commit, occasionally useful but usually better to use
+    # stash
+    cd = commit --all -m "dirty"
+
+
+    # indicate where the cherry-pick came from in the commit message
+    cpx = cherry-pick -x
+
+    # delete branch
+    db = branch -D
+
+    # delete branch from origin
+    dbo = "!f() { git push origin :$1; }; f"
+
+    # delete branch from upstream
+    dbu = "!f() { git push upstream :$1; }; f"
+
+    # instead of diff, show lines added/deleted per file, quick diff summary
+    ds = diff --stat
+
+    # interactive erase. like ap, but for removing changes from your tree instead of staging them.
+    e = checkout -p
+
+    # fetch all your remotes
+    fa = fetch --all
+
+    # fetch all your remotes, and remove local copies of remotely deleted branches
+    fap = fetch --all --prune
+
+    # just fetch upstream
+    fu = fetch upstream
+
+    # interactive rebase, best thing since sliced bread
+    irb = rebase -i
+    # rebase onto whatever you had checked out last
+    irbl = rebase -i HEAD@{1}
+    # rebase onto various places
+    irbm = rebase -i master
+    irbo = rebase -i origin/master
+    irbu = rebase -i upstream/master
+
+    #gitk is really cool, I recommend making sure you can use it
+    k = !gitk 2>/dev/null
+    ka = !gitk --all 2>/dev/null
+
+    # log with pretty lines (poor man's gitk)
+    lg = log --graph
+    lga = log --graph --all
+
+    # Log commits with CAPS
+    loud = log --grep=\\\\[[-_A-Z\\ ]*\\\\]
+
+    # log with patches
+    lp = log -p
+
+    # list all the files watched by git
+    ls = ls-files
+
+    # log with summaries -- lines touched per file
+    lss = log --stat
+
+    # list files with conflicts
+    lsu = ls-files --unmerged
+
+    # force a merge commit even if you could fast-forward
+    mm = merge --no-ff
+
+    # useful for merging with a repo that contains a subtree of yours (rare)
+    ms = merge -s subtree
+
+    #find all the possible names of a commit
+    nr = name-rev
+
+    # honestly, don't use pull
+    pl = pull
+    pr = pull --rebase
+
+    # stop a rebase you're in the middle of
     rba = rebase --abort
+
+    # continue rebasing, after you've solved a conflict
     rbc = rebase --continue
+
+    # rebase onto various places
     rbh = rebase HEAD
     rbl = rebase HEAD@{1}
     rbm = rebase master
     rbo = rebase origin/master
-    rbs = rebase --skip
     rbu = rebase upstream/master
+
+    # skip the commit git just tried to rebase
+    rbs = rebase --skip
+
+    # reset --hard is useful for two things
+    #  - Quickly blowing away whatever changes you've made and haven't
+    #  committed
+    #  - Moving a branch from one place to another -- say you have a master
+    #  branch, and it's got stuff on it you don't want, and you instead want it
+    #  to reflect upstream/master. You'd checkout master and then reset --hard
+    #  upstream/master
     rh = reset --hard
-    rl = reflog
+
+    # In practice I never use reset soft. It'll checkout some commit without
+    # messing with your tree or your staging area.
     rs = reset --soft
-    rv = revert
+
+    # reset --mixed is like reset --hard except it *doesn't touch your tree.*
+    # (tree = the actual source files checked out on your disk)
+    # this is useful if you want to bring your tree with you and commit parts
+    # of it elsewhere. See 'uc', below.
     rx = reset --mixed
+
+    # log of what commits have been checked out when, useful for finding 'lost'
+    # commits
+    rl = reflog
+
+    # Reverse the diff of a commit and apply it as a new commit
+    rv = revert
+
+    # Status, but less verbose
     s = status -sb
-    sf = svn fetch
+
+    # Show the commit message and diff for a commit
     sh = show
-    sps = svn dcommit
-    srb = svn rebase
+
+    # Show the summary (files touched) for a commit
     ss = show --stat
+
+    # *Also* the best thing since sliced bread, sticks whatever the diff is
+    # between your tree and your commit in a stack
     st = stash
-    stc = stash clear
+    # Drops an element from that stack
     std = stash drop
+    # Lists that stack
     stl = stash list
+    # Lists that stack with patches
     stlp = stash list --patch
+    # Pops a diff from that stack and attempts to apply it to your tree
+    # (will leave it on the stack if there are conflicts)
     stp = stash pop
+
+    # Undo your last commit without touching your tree. Allow you to make the
+    # commit again. (Or perhaps make it in smaller parts)
     uc = reset --mixed HEAD^
+
+    # Blow away your last commit, leave nothing in your tree.
     uch = reset --hard HEAD^
 [apply]
     # wish this worked with commits
@@ -111,6 +219,7 @@
     lineNumber = true
 [log]
     # show where branches are in log
+    # this is so useful!
     decorate = short
 [push]
     # don't push all the branches!
@@ -121,8 +230,6 @@
 [rebase]
     # show a diffstat after rebasing
     stat = true
-[svn]
-    authorsfile = /home/mike/.svn_authors
 [user]
     # Hey look, it's me.
     name = Michael Blume
