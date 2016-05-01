@@ -10,7 +10,6 @@
     bl = blame
     cl = clone
     co = checkout
-    cp = cherry-pick
     d = diff
     f = fetch
     g = grep
@@ -49,7 +48,8 @@
     # stash
     cd = commit --all -m "dirty"
 
-
+    # grab the diff from a commit and apply it elsewhere in the history
+    cp = cherry-pick
     # indicate where the cherry-pick came from in the commit message
     cpx = cherry-pick -x
 
