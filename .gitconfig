@@ -218,10 +218,16 @@
 [grep]
     # show line numbers when I git-grep
     lineNumber = true
+[interactive]
+    diffFilter = diff-highlight
 [log]
     # show where branches are in log
     # this is so useful!
     decorate = short
+[pager]
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
 [push]
     # don't push all the branches!
     default = current
