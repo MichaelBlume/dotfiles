@@ -8,6 +8,7 @@
     b = branch
     #blamematt
     bl = blame
+    c = commit
     cl = clone
     co = checkout
     d = diff
@@ -27,19 +28,15 @@
     # use this to stage diffs, use it every time
     ap = add --patch
 
-    # shortcut for commit, but shows you the diff in the editor while you're
-    # writing the commit message, which is nice.
-    c = commit --verbose
-
     # try not to use this
-    ca = commit --all --verbose
+    ca = commit --all
 
     # for rewriting a commit -- either to change the diff, or to edit the
     # commit message
-    cm = commit --amend --verbose
+    cm = commit --amend
 
     # again, don't
-    cam = commit --all --amend --verbose
+    cam = commit --all --amend
 
     # create a branch and immediately check it out
     cb = checkout -b
@@ -198,6 +195,10 @@
 [branch]
     # when I branch off a remote checkout, set up tracking.
     autosetupmerge = true
+[commit]
+    # shows you the diff in the editor while you're writing the commit
+    # message, which is nice, helps remind you what you're commiting
+    verbose = true
 [color]
     ui = auto
 [core]
