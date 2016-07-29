@@ -22,7 +22,7 @@
     r = remote
     rb = rebase
 
-    # for dealing with patch files, not part of climate workflow
+    # Throw away a patch that didn't apply
     ama = am --abort
 
     # use this to stage diffs, use it every time
@@ -240,5 +240,5 @@
 [user]
     # Hey look, it's me.
     name = Michael Blume
-    email = michael.blume@climate.com
+    email = blume.mike@gmail.com
     
