@@ -125,7 +125,7 @@ set guioptions-=L
 set guioptions+=A
 
 colorscheme koehler
-set guifont=Source\ Code\ Pro\ Medium:h14
+" set guifont=Source\ Code\ Pro\ Medium:h14
 
 map <C-t> :update<cr>:Eval (do (require 'editor-fns) (editor-fns/run-all-tests))<cr>
 map <C-n> :update<cr>:Eval (do (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh))<cr>
