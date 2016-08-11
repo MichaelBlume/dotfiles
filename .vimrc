@@ -130,3 +130,8 @@ colorscheme koehler
 map <C-t> :update<cr>:Eval (do (require 'editor-fns) (editor-fns/run-all-tests))<cr>
 map <C-n> :update<cr>:Eval (do (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh))<cr>
 autocmd BufNewFile,BufRead *.cljc,*.cljx setlocal filetype=clojure
+
+" Octave syntax
+augroup filetypedetect
+  au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+augroup END
