@@ -194,3 +194,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export DATE_BIN=gdate
+
+# Tensorflow stuff
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64/:$LD_LIBRARY_PATH
+export PATH="$PATH:$HOME/tensorflow/bin" # Tensorflow virtualenv
