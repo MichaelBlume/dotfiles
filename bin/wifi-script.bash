@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
-wifis=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s`
+export DISPLAY=:0
+wifis=`sudo iwlist wlan0 scan`
 
-hwwifis=`echo "$wifis" | grep "Climate\|Volterra"`
+echo "$wifis" > /home/mike/.wifilist
 
-tether=`echo "$wifis" | grep "   Mike"`
+hwwifis=`echo "$wifis" | grep "Volterra"`
+
+tether=`echo "$wifis" | grep "Mike"`
 
 transmission=`ps aux | grep -i Transmission | grep -v grep`
 
 if [ -n "$hwwifis" ] && [ -n "$tether" ]; then
-  /usr/local/bin/growlnotify -s -m "stop tethering"
+  logger -s 'notifying tethering'
+  su mike -c 'notify-send "stop tethering"'
 fi
 
 if [ -n "$transmission" ] && [ -n "$tether" ]; then
-  /usr/local/bin/growlnotify -s -m "do not tether and torrent"
+  logger -s 'notifying torrenting'
+  sudo -u mike notify-send "do not tether and torrent"
 fi
