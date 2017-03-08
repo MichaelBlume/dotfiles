@@ -10,8 +10,6 @@
                   [lein-oneoff "0.3.1"]
                   [jonase/eastwood "0.2.1"]
                   [lein-clojars "0.9.1"]]
-        :mirrors  {#"clojars"  {:name "clojars mirror"
-                                :url "https://clojars-mirror.tcrawley.org/repo/"}}
         :injections  [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
         :ultra {:color-scheme :solarized_dark}
