@@ -16,7 +16,10 @@ Plugin 'tpope/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
 Plugin 'udalov/kotlin-vim'
 Plugin 'guns/vim-clojure-highlight'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 let g:clojure_align_multiline_strings = 1
+let g:jsx_ext_required = 0
 nmap cpP :Eval <CR>
 Plugin 'airblade/vim-gitgutter' "This is nice to see what you've modified and not
 " for gitgutter
@@ -129,7 +132,7 @@ colorscheme koehler
 
 map <C-t> :update<cr>:Eval (do (require 'editor-fns) (editor-fns/run-all-tests))<cr>
 map <C-n> :update<cr>:Eval (do (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh))<cr>
-autocmd BufNewFile,BufRead *.cljc,*.cljx setlocal filetype=clojure
+autocmd BufNewFile,BufRead *.cljc,*.cljx,*.cljs setlocal filetype=clojure
 
 " Octave syntax
 augroup filetypedetect
