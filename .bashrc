@@ -138,7 +138,6 @@ export FIGNORE=".hi:.o"
 
 
 export EDITOR=vim
-export PYTHONPATH="$PYTHONPATH:/home/mike/lib/python/"
 
 # Git tab completion
 if [ -f ~/workspace/git/contrib/completion/git-completion.bash ]; then
