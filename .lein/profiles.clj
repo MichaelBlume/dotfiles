@@ -1,5 +1,5 @@
 {:user {:plugins [[cider/cider-nrepl "0.8.2"]
-                  [lein-cloverage "1.0.2"]
+                  [lein-cloverage "1.0.8"]
                   [lein-kibit "0.1.2"]
                   [lein-bikeshed "0.2.0"]
                   [lein-pprint "1.1.1"]
