@@ -233,6 +233,7 @@
 [push]
   # don't push all the branches!
   default = current
+  followTags = true
 [receive]
   # allow push -f
   denyCurrentBranch = warn
