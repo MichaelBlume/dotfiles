@@ -224,6 +224,8 @@
   # show where branches are in log
   # this is so useful!
   decorate = short
+[merge]
+  conflictstyle = diff3
 [pager]
   log = diff-highlight | less
   show = diff-highlight | less
