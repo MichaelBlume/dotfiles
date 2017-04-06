@@ -1,244 +1,243 @@
 [advice]
-    # I know this stuff by now
-    pushNonFastForward = false
-    statusHints = false
+  # I know this stuff by now
+  pushNonFastForward = false
+  statusHints = false
 [alias]
-    # simple shortcuts
-    a = add
-    b = branch
-    #blamematt
-    bl = blame
-    c = commit
-    cl = clone
-    co = checkout
-    d = diff
-    f = fetch
-    g = grep
-    h = help
-    i = init
-    l = log
-    m = merge
-    ps = push
-    r = remote
-    rb = rebase
+  # simple shortcuts
+  a = add
+  b = branch
+  #blamematt
+  bl = blame
+  c = commit
+  cl = clone
+  co = checkout
+  d = diff
+  f = fetch
+  g = grep
+  h = help
+  i = init
+  l = log
+  m = merge
+  ps = push
+  r = remote
+  rb = rebase
 
-    # Throw away a patch that didn't apply
-    ama = am --abort
+  # Throw away a patch that didn't apply
+  ama = am --abort
 
-    # use this to stage diffs, use it every time
-    ap = add --patch
+  # use this to stage diffs, use it every time
+  ap = add --patch
 
-    # try not to use this
-    ca = commit --all
+  # try not to use this
+  ca = commit --all
 
-    # for rewriting a commit -- either to change the diff, or to edit the
-    # commit message
-    cm = commit --amend
+  # for rewriting a commit -- either to change the diff, or to edit the
+  # commit message
+  cm = commit --amend
 
-    # again, don't
-    cam = commit --all --amend
+  # again, don't
+  cam = commit --all --amend
 
-    # create a branch and immediately check it out
-    cb = checkout -b
+  # create a branch and immediately check it out
+  cb = checkout -b
 
-    # quick and dirty commit, occasionally useful but usually better to use
-    # stash
-    cd = commit --all -m "dirty"
+  # quick and dirty commit, occasionally useful but usually better to use
+  # stash
+  cd = commit --all -m "dirty"
 
-    # grab the diff from a commit and apply it elsewhere in the history
-    cp = cherry-pick
-    # indicate where the cherry-pick came from in the commit message
-    cpx = cherry-pick -x
+  # grab the diff from a commit and apply it elsewhere in the history
+  cp = cherry-pick
+  # indicate where the cherry-pick came from in the commit message
+  cpx = cherry-pick -x
 
-    # delete branch
-    db = branch -D
+  # delete branch
+  db = branch -D
 
-    # delete branch from origin
-    dbo = "!f() { git push origin :$1; }; f"
+  # delete branch from origin
+  dbo = "!f() { git push origin :$1; }; f"
 
-    # delete branch from upstream
-    dbu = "!f() { git push upstream :$1; }; f"
+  # delete branch from upstream
+  dbu = "!f() { git push upstream :$1; }; f"
 
-    # instead of diff, show lines added/deleted per file, quick diff summary
-    ds = diff --stat
+  # instead of diff, show lines added/deleted per file, quick diff summary
+  ds = diff --stat
 
-    # interactive erase. like ap, but for removing changes from your tree instead of staging them.
-    e = checkout -p
+  # interactive erase. like ap, but for removing changes from your tree instead of staging them.
+  e = checkout -p
 
-    # fetch all your remotes
-    fa = fetch --all
+  # fetch all your remotes
+  fa = fetch --all
 
-    # fetch all your remotes, and remove local copies of remotely deleted branches
-    fap = fetch --all --prune
+  # fetch all your remotes, and remove local copies of remotely deleted branches
+  fap = fetch --all --prune
 
-    # just fetch upstream
-    fu = fetch upstream
+  # just fetch upstream
+  fu = fetch upstream
 
-    # interactive rebase, best thing since sliced bread
-    irb = rebase -i
-    # rebase onto whatever you had checked out last
-    irbl = rebase -i HEAD@{1}
-    # rebase onto various places
-    irbm = rebase -i master
-    irbo = rebase -i origin/master
-    irbu = rebase -i upstream/master
+  # interactive rebase, best thing since sliced bread
+  irb = rebase -i
+  # rebase onto whatever you had checked out last
+  irbl = rebase -i HEAD@{1}
+  # rebase onto various places
+  irbm = rebase -i master
+  irbo = rebase -i origin/master
+  irbu = rebase -i upstream/master
 
-    #gitk is really cool, I recommend making sure you can use it
-    k = !gitk 2>/dev/null
-    ka = !gitk --all 2>/dev/null
+  #gitk is really cool, I recommend making sure you can use it
+  k = !gitk 2>/dev/null
+  ka = !gitk --all 2>/dev/null
 
-    # log with pretty lines (poor man's gitk)
-    lg = log --graph
-    lga = log --graph --all
+  # log with pretty lines (poor man's gitk)
+  lg = log --graph
+  lga = log --graph --all
 
-    # Log commits with CAPS
-    loud = log --grep=\\\\[[-_A-Z\\ ]*\\\\]
+  # Log commits with CAPS
+  loud = log --grep=\\\\[[-_A-Z\\ ]*\\\\]
 
-    # log with patches
-    lp = log -p
+  # log with patches
+  lp = log -p
 
-    # list all the files watched by git
-    ls = ls-files
+  # list all the files watched by git
+  ls = ls-files
 
-    # log with summaries -- lines touched per file
-    lss = log --stat
+  # log with summaries -- lines touched per file
+  lss = log --stat
 
-    # list files with conflicts
-    lsu = ls-files --unmerged
+  # list files with conflicts
+  lsu = ls-files --unmerged
 
-    # force a merge commit even if you could fast-forward
-    mm = merge --no-ff
+  # force a merge commit even if you could fast-forward
+  mm = merge --no-ff
 
-    # useful for merging with a repo that contains a subtree of yours (rare)
-    ms = merge -s subtree
+  # useful for merging with a repo that contains a subtree of yours (rare)
+  ms = merge -s subtree
 
-    #find all the possible names of a commit
-    nr = name-rev
+  #find all the possible names of a commit
+  nr = name-rev
 
-    # honestly, don't use pull
-    pl = pull
-    pr = pull --rebase
+  # honestly, don't use pull
+  pl = pull
+  pr = pull --rebase
 
-    # stop a rebase you're in the middle of
-    rba = rebase --abort
+  # stop a rebase you're in the middle of
+  rba = rebase --abort
 
-    # continue rebasing, after you've solved a conflict
-    rbc = rebase --continue
+  # continue rebasing, after you've solved a conflict
+  rbc = rebase --continue
 
-    # rebase onto various places
-    rbh = rebase HEAD
-    rbl = rebase HEAD@{1}
-    rbm = rebase master
-    rbo = rebase origin/master
-    rbu = rebase upstream/master
+  # rebase onto various places
+  rbh = rebase HEAD
+  rbl = rebase HEAD@{1}
+  rbm = rebase master
+  rbo = rebase origin/master
+  rbu = rebase upstream/master
 
-    # skip the commit git just tried to rebase
-    rbs = rebase --skip
+  # skip the commit git just tried to rebase
+  rbs = rebase --skip
 
-    # reset --hard is useful for two things
-    #  - Quickly blowing away whatever changes you've made and haven't
-    #  committed
-    #  - Moving a branch from one place to another -- say you have a master
-    #  branch, and it's got stuff on it you don't want, and you instead want it
-    #  to reflect upstream/master. You'd checkout master and then reset --hard
-    #  upstream/master
-    rh = reset --hard
+  # reset --hard is useful for two things
+  #  - Quickly blowing away whatever changes you've made and haven't
+  #  committed
+  #  - Moving a branch from one place to another -- say you have a master
+  #  branch, and it's got stuff on it you don't want, and you instead want it
+  #  to reflect upstream/master. You'd checkout master and then reset --hard
+  #  upstream/master
+  rh = reset --hard
 
-    # In practice I never use reset soft. It'll checkout some commit without
-    # messing with your tree or your staging area.
-    rs = reset --soft
+  # In practice I never use reset soft. It'll checkout some commit without
+  # messing with your tree or your staging area.
+  rs = reset --soft
 
-    # reset --mixed is like reset --hard except it *doesn't touch your tree.*
-    # (tree = the actual source files checked out on your disk)
-    # this is useful if you want to bring your tree with you and commit parts
-    # of it elsewhere. See 'uc', below.
-    rx = reset --mixed
+  # reset --mixed is like reset --hard except it *doesn't touch your tree.*
+  # (tree = the actual source files checked out on your disk)
+  # this is useful if you want to bring your tree with you and commit parts
+  # of it elsewhere. See 'uc', below.
+  rx = reset --mixed
 
-    # log of what commits have been checked out when, useful for finding 'lost'
-    # commits
-    rl = reflog
+  # log of what commits have been checked out when, useful for finding 'lost'
+  # commits
+  rl = reflog
 
-    # Reverse the diff of a commit and apply it as a new commit
-    rv = revert
+  # Reverse the diff of a commit and apply it as a new commit
+  rv = revert
 
-    # Status, but less verbose
-    s = status -sb
+  # Status, but less verbose
+  s = status -sb
 
-    # Show the commit message and diff for a commit
-    sh = show
+  # Show the commit message and diff for a commit
+  sh = show
 
-    # Show the summary (files touched) for a commit
-    ss = show --stat
+  # Show the summary (files touched) for a commit
+  ss = show --stat
 
-    # *Also* the best thing since sliced bread, sticks whatever the diff is
-    # between your tree and your commit in a stack
-    st = stash
-    # Drops an element from that stack
-    std = stash drop
-    # Lists that stack
-    stl = stash list
-    # Lists that stack with patches
-    stlp = stash list --patch
-    # Pops a diff from that stack and attempts to apply it to your tree
-    # (will leave it on the stack if there are conflicts)
-    stp = stash pop
+  # *Also* the best thing since sliced bread, sticks whatever the diff is
+  # between your tree and your commit in a stack
+  st = stash
+  # Drops an element from that stack
+  std = stash drop
+  # Lists that stack
+  stl = stash list
+  # Lists that stack with patches
+  stlp = stash list --patch
+  # Pops a diff from that stack and attempts to apply it to your tree
+  # (will leave it on the stack if there are conflicts)
+  stp = stash pop
 
-    # Undo your last commit without touching your tree. Allow you to make the
-    # commit again. (Or perhaps make it in smaller parts)
-    uc = reset --mixed HEAD^
+  # Undo your last commit without touching your tree. Allow you to make the
+  # commit again. (Or perhaps make it in smaller parts)
+  uc = reset --mixed HEAD^
 
-    # Blow away your last commit, leave nothing in your tree.
-    uch = reset --hard HEAD^
+  # Blow away your last commit, leave nothing in your tree.
+  uch = reset --hard HEAD^
 [apply]
-    # wish this worked with commits
-    whitespace = fix
+  # wish this worked with commits
+  whitespace = fix
 [branch]
-    # when I branch off a remote checkout, set up tracking.
-    autosetupmerge = true
+  # when I branch off a remote checkout, set up tracking.
+  autosetupmerge = true
 [commit]
-    # shows you the diff in the editor while you're writing the commit
-    # message, which is nice, helps remind you what you're commiting
-    verbose = true
+  # shows you the diff in the editor while you're writing the commit
+  # message, which is nice, helps remind you what you're commiting
+  verbose = true
 [color]
-    ui = auto
+  ui = auto
 [core]
-    editor = /usr/bin/vim
-    excludesfile = ~/.gitignoreglobal
-    # x bits on scripts are often set false in a repo
-    filemode = false
-    # be strict
-    whitespace = fix,trailing-space,space-before-tab, tab-in-indent, tabwidth=4
+  editor = /usr/bin/vim
+  excludesfile = ~/.gitignoreglobal
+  # x bits on scripts are often set false in a repo
+  filemode = false
+  # be strict
+  whitespace = fix,trailing-space,space-before-tab, tab-in-indent, tabwidth=4
 [diff]
-    # notice if I pull some text out of a file
-    renames = copies
-    # a,b = not so helpful
-    mnemonicprefix = true
-    # Don't give up!
-    renameLimit = 5000
+  # notice if I pull some text out of a file
+  renames = copies
+  # a,b = not so helpful
+  mnemonicprefix = true
+  # Don't give up!
+  renameLimit = 5000
 [grep]
-    # show line numbers when I git-grep
-    lineNumber = true
+  # show line numbers when I git-grep
+  lineNumber = true
 [interactive]
-    diffFilter = diff-highlight
+  diffFilter = diff-highlight
 [log]
-    # show where branches are in log
-    # this is so useful!
-    decorate = short
+  # show where branches are in log
+  # this is so useful!
+  decorate = short
 [pager]
-    log = diff-highlight | less
-    show = diff-highlight | less
-    diff = diff-highlight | less
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
 [push]
-    # don't push all the branches!
-    default = current
+  # don't push all the branches!
+  default = current
 [receive]
-    # allow push -f
-    denyCurrentBranch = warn
+  # allow push -f
+  denyCurrentBranch = warn
 [rebase]
-    # show a diffstat after rebasing
-    stat = true
+  # show a diffstat after rebasing
+  stat = true
 [user]
-    # Hey look, it's me.
-    name = Michael Blume
-    email = blume.mike@gmail.com
-    
+  # Hey look, it's me.
+  name = Michael Blume
+  email = blume.mike@gmail.com
