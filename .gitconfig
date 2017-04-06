@@ -240,6 +240,7 @@
 [rebase]
   # show a diffstat after rebasing
   stat = true
+  autostash = true
 [user]
   # Hey look, it's me.
   name = Michael Blume
