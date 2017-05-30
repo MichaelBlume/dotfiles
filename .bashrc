@@ -12,7 +12,11 @@ export PATH=$HOME/bin:$HOME/.cabal/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 #[ -f /usr/local/bin/setup_completeme_key_binding.sh ] && source /usr/local/bin/setup_completeme_key_binding.sh
 
 # Try to set JAVA_HOME
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+if [ -e "/usr/libexec/java_home" ]; then
+  export JAVA_HOME=`/usr/libexec/java_home`
+else
+  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+fi
 
 export PATH=$JAVA_HOME/bin:$PATH
 
