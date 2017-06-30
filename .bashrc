@@ -13,7 +13,7 @@ export PATH=$HOME/bin:$HOME/.cabal/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 # Try to set JAVA_HOME
 if [ -e "/usr/libexec/java_home" ]; then
-  export JAVA_HOME=`/usr/libexec/java_home`
+  export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 else
   export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 fi
