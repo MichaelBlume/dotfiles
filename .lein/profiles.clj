@@ -20,6 +20,6 @@
         :dependencies [[slamhound "1.5.5" :exclusions [org.clojure/clojure]]
                        [cljfmt "0.5.6"]
                        [org.clojure/tools.trace "0.7.9" :exclusions [org.clojure/clojure]]
-                       [pjstadig/humane-test-output "0.7.0" :exclusions [org.clojure/clojure]]
+                       [pjstadig/humane-test-output "0.8.2" :exclusions [org.clojure/clojure]]
                        [editor-fns "1.0.0" :exclusions [org.clojure/clojure]]
                        [criterium "0.4.3" :exclusions [org.clojure/clojure]]]}}
