@@ -16,7 +16,9 @@
         :aliases {"aaa" ["ancient" ":all" ":allow-qualified"]
                   "ct" ["do" "check," "test"]
                   "rh" ["repl" ":headless"]}
-        :repl-options  {:init  (require 'cljfmt.core)}
+        :repl-options  {:init  (do
+                                 (require 'cljfmt.core)
+                                 (require 'clojure.java.javadoc))}
         :dependencies [[slamhound "1.5.5" :exclusions [org.clojure/clojure]]
                        [cljfmt "0.5.6"]
                        [org.clojure/tools.trace "0.7.9" :exclusions [org.clojure/clojure]]
