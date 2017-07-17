@@ -11,6 +11,7 @@
                   [jonase/eastwood "0.2.4"]
                   [lein-clojars "0.9.1"]]
         :injections  [(require 'pjstadig.humane-test-output)
+                      (require 'clojure.java.javadoc)
                       (pjstadig.humane-test-output/activate!)]
         :ultra {:color-scheme :solarized_dark}
         :aliases {"aaa" ["ancient" ":all" ":allow-qualified"]
