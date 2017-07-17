@@ -78,6 +78,7 @@
   # rebase onto whatever you had checked out last
   irbl = rebase -i HEAD@{1}
   # rebase onto various places
+  irbi = rebase -i in-pr
   irbm = rebase -i master
   irbo = rebase -i origin/master
   irbu = rebase -i upstream/master
@@ -126,6 +127,7 @@
 
   # rebase onto various places
   rbh = rebase HEAD
+  rbi = rebase in-pr
   rbl = rebase HEAD@{1}
   rbm = rebase master
   rbo = rebase origin/master
