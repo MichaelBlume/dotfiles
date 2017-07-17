@@ -6,7 +6,6 @@
   # simple shortcuts
   a = add
   b = branch
-  #blamematt
   bl = blame
   c = commit
   cl = clone
