@@ -6,6 +6,7 @@
                   [lein-nevam "0.1.2"]
                   [lein-try "0.4.3"]
                   [lein-ancient "0.6.10"]
+                  [lein-cljfmt-editor "0.1.0" :exclusions [org.clojure/clojure]]
 ;                  [venantius/ultra "0.1.9"]
                   [lein-oneoff "0.3.1"]
                   [jonase/eastwood "0.2.4"]
