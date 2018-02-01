@@ -19,6 +19,7 @@ Plugin 'guns/vim-clojure-highlight'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'michaelblume/vim-cljfmt'
+Plugin 'martinda/Jenkinsfile-vim-syntax'
 let g:clojure_align_multiline_strings = 1
 let g:jsx_ext_required = 0
 nmap cpP :Eval <CR>
