@@ -202,6 +202,6 @@ export DATE_BIN=gdate
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64/:$LD_LIBRARY_PATH
 export PATH="$PATH:$HOME/tensorflow/bin" # Tensorflow virtualenv
 
-export ANDROID_HOME=${HOME}/Android
+export ANDROID_HOME=${HOME}/Library/Android
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
