@@ -16,3 +16,5 @@ alias asdf="setxkbmap dvorak"
 alias mine="sudo chown -R $USER:$USER ."
 
 alias mvns="mvn -Dmaven.test.skip=true"
+
+alias killplay='ps aux | grep play.server.Server | grep -v grep | tr -s " " | cut -f2 -d " " | xargs kill -9'
