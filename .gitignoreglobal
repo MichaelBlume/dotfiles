@@ -8,3 +8,5 @@ build/
 .idea
 .nrepl-port
 target
+.direnv/
+.envrc
