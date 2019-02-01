@@ -205,3 +205,5 @@ export PATH="$PATH:$HOME/tensorflow/bin" # Tensorflow virtualenv
 export ANDROID_HOME=${HOME}/Library/Android
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+
+source `which set-env`

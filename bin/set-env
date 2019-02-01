@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# echo "setting environment variables"
+export ARTIFACTORY_USERNAME=michael.blume
+export ARTIFACTORY_PASSWORD=AP4qfFN2MyZXo5J7nng8Sd6S5pyVcx5W5JrBpa
+export PLAY_HOME="/Users/michael.blume/workspace/play-1.4.5"
+if [ -e "/usr/libexec/java_home" ]; then
+  export JAVA6_HOME=`/usr/libexec/java_home -v 1.6`
+fi
+
+set_vars() {
+  echo "exporting envs to launchctl"
+  launchctl setenv ARTIFACTORY_USERNAME "$ARTIFACTORY_USERNAME"
+  launchctl setenv ARTIFACTORY_PASSWORD "$ARTIFACTORY_PASSWORD"
+  launchctl setenv PLAY_HOME "$PLAY_HOME"
+  if [ -n "$JAVA6_HOME" ]; then
+    echo "setting JAVA6_HOME"
+    launchctl setenv JAVA6_HOME "$JAVA6_HOME"
+  fi
+  echo "done exporting env vars"
+}
+
+[[ "${BASH_SOURCE[0]}" != "${0}" ]] || set_vars
